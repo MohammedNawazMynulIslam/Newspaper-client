@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link as RouterLink } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 
 const pages = [
   { label: "Home", link: "/" },
@@ -25,9 +26,32 @@ const pages = [
   { label: "Register", link: "/register" },
   // Add more pages as needed
 ];
+// const loginUser = [
+//   { label: "Home", link: "/" },
+//   { label: "Add Articles", link: "/add-articles" },
+//   { label: "All Articles", link: "/all-articles" },
+//   { label: "Subscription", link: "/subscription" },
+//   { label: "Dashboard", link: "/dashboard" },
+//   { label: "My Articles", link: "/my-articles" },
+//   { label: "Premium Articles", link: "/premium-articles" },
+//   { label: "LogOut", link: "/login" },
+
+//   // Add more pages as needed
+// ];
+
 const settings = ["Profile"];
 
 const Navbar = () => {
+  const { user, logOut } = useAuth();
+  // console.log(user.reloadUserInfo.photoUrl);
+  // const userPic = user?.reloadUserInfo?.photoUrl;
+  // console.log(userPic);
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((err) => console.log(err));
+  };
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -134,7 +158,7 @@ const Navbar = () => {
                 Newspaper
               </Typography>
             </Box>
-            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            {/* <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
                 <Button
                   key={page.label}
@@ -146,35 +170,84 @@ const Navbar = () => {
                   {page.label}
                 </Button>
               ))}
-            </Box>
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="" src="" />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+            </Box> */}
+            <Box sx={{ flexGrow: 1 }}>
+              {user ? (
+                <>
+                  <Tooltip title="Open settings">
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      <Avatar alt="" src={user?.photoURL} />
+                    </IconButton>
+                  </Tooltip>
+                  <Menu
+                    sx={{ mt: "45px" }}
+                    id="menu-appbar"
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                    {settings.map((setting) => (
+                      <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                        <Typography textAlign="center">{setting}</Typography>
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                  <MenuItem>
+                    <Typography textAlign={"center"}>Home</Typography>
                   </MenuItem>
-                ))}
-              </Menu>
+                  <MenuItem>
+                    <Typography textAlign={"center"}>Add Articles</Typography>
+                  </MenuItem>
+                  <MenuItem>
+                    <Typography textAlign={"center"}>All Articles</Typography>
+                  </MenuItem>
+                  <MenuItem>
+                    <Typography textAlign={"center"}>Subscription</Typography>
+                  </MenuItem>
+                  <MenuItem>
+                    <Typography textAlign={"center"}>Dashboard</Typography>
+                  </MenuItem>
+                  <MenuItem>
+                    <Typography textAlign={"center"}>My Articles</Typography>
+                  </MenuItem>
+                  <MenuItem>
+                    <Typography textAlign={"center"}>
+                      Premium Articles
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem>
+                    <Typography textAlign={"center"}>
+                      Premium Articles
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem onClick={handleLogOut}>
+                    <Typography textAlign={"center"}>Logout</Typography>
+                  </MenuItem>
+                </>
+              ) : (
+                <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+                  {pages.map((page) => (
+                    <Button
+                      key={page.label}
+                      component={RouterLink}
+                      to={page.link}
+                      onClick={handleCloseNavMenu}
+                      sx={{ my: 2, color: "white", display: "block" }}
+                    >
+                      {page.label}
+                    </Button>
+                  ))}
+                </Box>
+              )}
             </Box>
           </Toolbar>
         </Container>
