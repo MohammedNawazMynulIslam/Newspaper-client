@@ -11,15 +11,19 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import { Link as RouterLink } from "react-router-dom";
 
 const pages = [
-  "Home",
-  "Add Articles",
-  "All Articles",
-  "Subscription",
-  "Dashboard",
-  "My Articles",
-  "Premium Articles",
+  { label: "Home", link: "/" },
+  { label: "Add Articles", link: "/add-articles" },
+  { label: "All Articles", link: "/all-articles" },
+  { label: "Subscription", link: "/subscription" },
+  { label: "Dashboard", link: "/dashboard" },
+  { label: "My Articles", link: "/my-articles" },
+  { label: "Premium Articles", link: "/premium-articles" },
+  { label: "Login", link: "/login" },
+  { label: "Register", link: "/register" },
+  // Add more pages as needed
 ];
 const settings = ["Profile"];
 
@@ -100,8 +104,13 @@ const Navbar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem
+                  key={page.label}
+                  component={RouterLink}
+                  to={page.link}
+                  onClick={handleCloseNavMenu}
+                >
+                  <Typography textAlign="center">{page.label}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -128,11 +137,13 @@ const Navbar = () => {
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
                 <Button
-                  key={page}
+                  key={page.label}
+                  component={RouterLink}
+                  to={page.link}
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  {page}
+                  {page.label}
                 </Button>
               ))}
             </Box>
