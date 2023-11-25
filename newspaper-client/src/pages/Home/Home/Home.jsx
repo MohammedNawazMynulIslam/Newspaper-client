@@ -1,4 +1,7 @@
+import FeaturedArticlesSection from "../FeaturedArticle/FeaturedArticle";
 import Plans from "../Plans/Plans";
+import Reviews from "../Reviews/Reviews";
+
 import TrendingArticles from "../TrendingArticles/TrendingArticles";
 
 const Home = () => {
@@ -9,6 +12,8 @@ const Home = () => {
       {/* All Publisher */}
       {/* Statistic */}
       <Plans />
+      <FeaturedArticlesSection />
+      <Reviews />
     </div>
   );
 };
