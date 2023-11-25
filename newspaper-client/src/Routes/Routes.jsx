@@ -3,6 +3,9 @@ import LayOut from "../LayOut/LayOut";
 import Home from "../pages/Home/Home/Home";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
+import AddArticle from "../pages/AddArticle/AddArticle";
+import PrivateRoutes from "../private/PrivateRoute";
+import AllArticle from "../pages/AllArticle/AllArticle";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +23,18 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/add-articles",
+        element: (
+          <PrivateRoutes>
+            <AddArticle />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/all-articles",
+        element: <AllArticle />,
       },
     ],
   },

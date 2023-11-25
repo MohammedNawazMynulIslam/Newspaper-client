@@ -57,9 +57,8 @@ const Navbar = () => {
       ].filter(Boolean)
     : [
         { label: "Home", link: "/" },
-        { label: "Add Articles", link: "/add-articles" },
+
         { label: "All Articles", link: "/all-articles" },
-        { label: "Subscription", link: "/subscription" },
       ];
 
   return (
@@ -101,7 +100,7 @@ const Navbar = () => {
             >
               <MenuIcon />
             </IconButton>
-            {/* ... (your menu for smaller screens) */}
+
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -164,46 +163,6 @@ const Navbar = () => {
                 </Button>
               ))}
               {user ? (
-                // <>
-                //   <MenuItem onClick={handleLogOut}>
-                //     <Typography textAlign="center">Logout</Typography>
-                //   </MenuItem>
-                //   <Tooltip title="Open settings">
-                //     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                //       <Avatar alt="" src={user?.photoURL} />
-                //     </IconButton>
-                //   </Tooltip>
-                //   <Menu
-                //     sx={{ mt: "45px" }}
-                //     id="menu-appbar"
-                //     anchorEl={anchorElUser}
-                //     anchorOrigin={{
-                //       vertical: "top",
-                //       horizontal: "right",
-                //     }}
-                //     keepMounted
-                //     transformOrigin={{
-                //       vertical: "top",
-                //       horizontal: "right",
-                //     }}
-                //     open={Boolean(anchorElUser)}
-                //     onClose={handleCloseUserMenu}
-                //   >
-                //     {settings.map((setting) => (
-                //       <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                //         <Typography textAlign="center">{setting}</Typography>
-                //       </MenuItem>
-                //     ))}
-                //     <MenuItem
-                //       component={RouterLink}
-                //       to="/profile"
-                //       onClick={handleCloseUserMenu}
-                //     >
-                //       <Typography textAlign="center">Profile</Typography>
-                //     </MenuItem>
-                //   </Menu>
-                // </>
-
                 <>
                   {user.isAdmin && (
                     <MenuItem
@@ -214,13 +173,7 @@ const Navbar = () => {
                       <Typography textAlign="center">Dashboard</Typography>
                     </MenuItem>
                   )}
-                  {/* <MenuItem
-                    component={RouterLink}
-                    to="/my-articles"
-                    onClick={handleCloseNavMenu}
-                  >
-                    <Typography textAlign="center">My Articles</Typography>
-                  </MenuItem> */}
+
                   {user.hasSubscription && (
                     <MenuItem
                       component={RouterLink}
