@@ -23,11 +23,7 @@ const Register = () => {
     const email = form.email.value;
     const password = form.password.value;
     console.log(name, email, password);
-    // password
-    // const passwordCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{6,})/;
-    // if (!passwordCheck.test(password)) {
-    //   return;
-    // }
+
     createUser(email, password)
       .then((res) => {
         console.log(res);
