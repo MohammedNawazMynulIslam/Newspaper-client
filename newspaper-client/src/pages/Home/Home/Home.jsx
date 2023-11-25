@@ -1,3 +1,4 @@
+import Plans from "../Plans/Plans";
 import TrendingArticles from "../TrendingArticles/TrendingArticles";
 
 const Home = () => {
@@ -5,6 +6,9 @@ const Home = () => {
     <div>
       <h2>this is home</h2>
       <TrendingArticles />
+      {/* All Publisher */}
+      {/* Statistic */}
+      <Plans />
     </div>
   );
 };
