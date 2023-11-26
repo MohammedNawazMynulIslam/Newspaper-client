@@ -1,17 +1,35 @@
 import { useParams } from "react-router-dom";
 import useSingleArticle from "../../hooks/useSingleArticle";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useEffect } from "react";
 
 const SingleArticle = () => {
   const { id } = useParams();
-  const { data, isLoading, isFetching } = useSingleArticle({ _id: id });
+  const { data, isLoading } = useSingleArticle({ _id: id });
+  const axiosSecure = useAxiosSecure();
+
+  useEffect(() => {
+    const ViewCount = async () => {
+      try {
+        const res = await axiosSecure.put(`/article/${id}/view`);
+        if (res && res.data) {
+          console.log("View Count Updated");
+        } else {
+          console.log("error");
+        }
+      } catch (error) {
+        console.error("error updating view count", error);
+      }
+    };
+    ViewCount();
+  }, [axiosSecure, id]);
   if (isLoading) {
     return <div>Loading....</div>;
   }
   if (!data) {
     return <div>no data</div>;
   }
-  console.log(data);
-  console.log(data, isLoading, isFetching);
+
   return (
     <div className="flex flex-col justify-center items-center">
       <h2 className="text-center my-10 text-4xl">Single Article</h2>
