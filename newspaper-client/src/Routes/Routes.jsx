@@ -7,6 +7,10 @@ import AddArticle from "../pages/AddArticle/AddArticle";
 import PrivateRoutes from "../private/PrivateRoute";
 import AllArticle from "../pages/AllArticle/AllArticle";
 import SingleArticle from "../pages/SingleArticle/SingleArticle";
+import Subscription from "../pages/Subscription/Subscription";
+import Payment from "../pages/Payment/Payment";
+import Profile from "../pages/Profile/Profile";
+import MyArticles from "../pages/MyArticle/MyArticles";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +47,38 @@ const router = createBrowserRouter([
           <PrivateRoutes>
             {" "}
             <SingleArticle />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/subscription",
+        element: (
+          <PrivateRoutes>
+            <Subscription />{" "}
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/payment",
+        element: (
+          <PrivateRoutes>
+            <Payment />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <PrivateRoutes>
+            <Profile />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/my-articles",
+        element: (
+          <PrivateRoutes>
+            <MyArticles />
           </PrivateRoutes>
         ),
       },

@@ -40,8 +40,8 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return signOut(auth);
   };
-  //   update profile
-  const updateProfile = (name, photo) => {
+  // update profile
+  const UserUpdateProfile = (name, photo) => {
     return updateProfile(auth.currentUser, {
       displayName: name,
       photoURL: photo,
@@ -66,7 +66,7 @@ const AuthProvider = ({ children }) => {
     signIn,
     googleSignIn,
     logOut,
-    updateProfile,
+    UserUpdateProfile,
   };
 
   return (
