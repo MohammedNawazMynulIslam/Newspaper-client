@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 import {
   Table,
   TableBody,
@@ -36,7 +37,11 @@ const MyArticles = () => {
   const [reason, setReason] = useState("");
   const axiosSecure = useAxiosSecure();
 
-  const { data: articles, isLoading } = useQuery({
+  const {
+    data: articles,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["myArticle"],
     queryFn: async () => {
       try {
@@ -51,7 +56,7 @@ const MyArticles = () => {
       }
     },
   });
-
+  console.log(articles);
   const updateMutation = useMutation(updateArticle);
   const deleteMutation = useMutation(deleteArticle);
   const fetchDeclineReasonMutation = useMutation(fetchDeclineReason);
@@ -60,8 +65,31 @@ const MyArticles = () => {
     // Handle update logic using updateMutation.mutate()
   };
 
-  const handleDeleteArticle = (articleId) => {
-    // Handle delete logic using deleteMutation.mutate()
+  const handleDeleteArticle = async (id) => {
+    try {
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      });
+
+      if (result.isConfirmed) {
+        const res = await axiosSecure.delete(`/article/${id}`);
+        if (res.status === 200) {
+          await refetch(); // Correct way to call refetch
+          Swal.fire("Deleted!", "Your article has been deleted.", "success");
+        } else {
+          Swal.fire("Error", "Failed to delete article", "error");
+        }
+      }
+    } catch (error) {
+      console.error("Error deleting article:", error);
+      Swal.fire("Error", "Failed to delete article", "error");
+    }
   };
 
   const handleShowDeclineReason = async (articleId) => {
@@ -152,7 +180,7 @@ const MyArticles = () => {
                   <Button
                     variant="outlined"
                     color="secondary"
-                    onClick={() => handleDeleteArticle(article.id)}
+                    onClick={() => handleDeleteArticle(article._id)}
                   >
                     Delete
                   </Button>
