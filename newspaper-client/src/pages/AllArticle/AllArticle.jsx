@@ -21,9 +21,9 @@ const AllArticle = () => {
     queryKey: ["article", page, searchQuery, selectedPublisher, selectedTags],
     queryFn: async ({ pageParam = 1 }) => {
       try {
-        console.log("Search Query:", searchQuery);
-        console.log("Selected Publisher:", selectedPublisher);
-        console.log("Selected Tags:", selectedTags);
+        // console.log("Search Query:", searchQuery);
+        // console.log("Selected Publisher:", selectedPublisher);
+        // console.log("Selected Tags:", selectedTags);
         const res = await axiosSecure.get("/article", {
           params: {
             page: pageParam,
