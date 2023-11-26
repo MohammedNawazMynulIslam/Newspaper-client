@@ -6,6 +6,7 @@ import Register from "../pages/Register/Register";
 import AddArticle from "../pages/AddArticle/AddArticle";
 import PrivateRoutes from "../private/PrivateRoute";
 import AllArticle from "../pages/AllArticle/AllArticle";
+import SingleArticle from "../pages/SingleArticle/SingleArticle";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "/all-articles",
         element: <AllArticle />,
+      },
+      {
+        path: "/article/:id",
+        element: <SingleArticle />,
       },
     ],
   },
