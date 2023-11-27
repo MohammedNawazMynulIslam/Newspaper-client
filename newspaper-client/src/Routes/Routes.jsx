@@ -17,11 +17,13 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import AllArticles from "../pages/Dashboard/AllArticles/AllArticles";
 import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 import AllPublishers from "../pages/Dashboard/AllPublishers/AllPublishers";
+import Error from "../pages/Error/Error";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <LayOut />,
+    errorElement: <Error />,
     children: [
       {
         path: "/",

@@ -8,7 +8,7 @@ const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const AddArticle = () => {
-  const { register, handleSubmit, reset, control } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
 
@@ -31,7 +31,7 @@ const AddArticle = () => {
       const articleRes = await axiosSecure.post("/article", article);
       console.log(articleRes.data);
       if (articleRes.data.insertedId) {
-        // reset();
+        reset();
         Swal.fire({
           position: "top-start",
           icon: "success",

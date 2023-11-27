@@ -27,18 +27,40 @@ const Register = () => {
     const photoURL = form.photoURL.value;
     console.log(name, email, password, photoURL);
 
+    const passwordLengthError = password.length < 6;
+    const passwordCapitalError = !/[A-Z]/.test(password);
+    const passwordSpecialCharError = !/[^A-Za-z0-9]/.test(password);
+    const passwordNumericCharError = !/\d/.test(password);
+
+    if (
+      passwordLengthError ||
+      passwordCapitalError ||
+      passwordSpecialCharError ||
+      passwordNumericCharError
+    ) {
+      let errorMessage = "Password must meet the following criteria:\n";
+      if (passwordLengthError)
+        errorMessage += "- Be at least 6 characters long\n";
+      if (passwordCapitalError)
+        errorMessage += "- Contain at least one capital letter\n";
+      if (passwordSpecialCharError)
+        errorMessage += "- Contain at least one special character\n";
+      if (passwordNumericCharError)
+        errorMessage += "- Contain at least one numeric character\n";
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Password",
+        text: errorMessage,
+      });
+      return;
+    }
     try {
-      // Create user
       const res = await createUser(email, password);
-
-      // Assuming createUser returns user information in the response
       console.log(res);
-
-      // Make an additional Axios request to send user information to "/users"
       const userInfo = {
         name: name,
         email: email,
-        photoURL: photoURL, // Add the photoURL property
+        photoURL: photoURL,
       };
 
       const userRes = await axiosPublic.post("/users", userInfo);
@@ -50,13 +72,10 @@ const Register = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-
-        // Redirect to the desired page after successful registration
         navigate("/");
       }
     } catch (error) {
       console.error(error);
-
       Swal.fire({
         icon: "error",
         title: "Registration failed",
