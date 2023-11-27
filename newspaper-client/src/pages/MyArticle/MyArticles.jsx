@@ -17,6 +17,7 @@ import {
 import { useQuery, useMutation } from "@tanstack/react-query"; // Assuming you are using React Query for data fetching and mutation
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import ArticleModal from "./ArticleModal/ArticleModal";
+import { Helmet } from "react-helmet-async";
 
 // Replace these with your actual query and mutation functions
 const fetchArticles = async () => {
@@ -195,6 +196,9 @@ const MyArticles = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Newspaper || My Article</title>
+      </Helmet>
       <Typography
         variant="h4"
         textAlign={"center"}
@@ -249,7 +253,7 @@ const MyArticles = () => {
                   <Button
                     variant="outlined"
                     color="primary"
-                    onClick={() => handleUpdateArticle(article.id)}
+                    onClick={() => handleUpdate(article.id)}
                   >
                     Update
                   </Button>
