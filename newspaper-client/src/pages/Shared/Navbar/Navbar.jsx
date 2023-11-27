@@ -13,13 +13,14 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link as RouterLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
+import useAdmin from "../../../hooks/useAdmin";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const settings = ["Profile"];
-
+  const [isAdmin] = useAdmin();
   const handleLogOut = () => {
     logOut()
       .then(() => {})
@@ -48,8 +49,7 @@ const Navbar = () => {
         { label: "Add Articles", link: "/add-articles" },
         { label: "All Articles", link: "/all-articles" },
         { label: "Subscription", link: "/subscription" },
-        //  user.isAdmin &&
-        { label: "Dashboard", link: "/dashboard" },
+        isAdmin && { label: "Dashboard", link: "/dashboard" },
         { label: "My Articles", link: "/my-articles" },
         user.hasSubscription && {
           label: "Premium Articles",
@@ -58,7 +58,6 @@ const Navbar = () => {
       ].filter(Boolean)
     : [
         { label: "Home", link: "/" },
-
         { label: "All Articles", link: "/all-articles" },
       ];
 
@@ -165,7 +164,7 @@ const Navbar = () => {
               ))}
               {user ? (
                 <>
-                  {user.isAdmin && (
+                  {isAdmin && (
                     <MenuItem
                       component={RouterLink}
                       to="/dashboard"
