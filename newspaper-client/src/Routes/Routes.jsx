@@ -11,7 +11,8 @@ import Subscription from "../pages/Subscription/Subscription";
 import Payment from "../pages/Payment/Payment";
 import Profile from "../pages/Profile/Profile";
 import MyArticles from "../pages/MyArticle/MyArticles";
-import UpdateForm from "../pages/MyArticle/UpdateForm";
+
+import PremiumArticle from "../pages/PremiumArticle/PremiumArticle";
 
 const router = createBrowserRouter([
   {
@@ -84,10 +85,10 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/updateForm/:id",
+        path: "/premium-articles",
         element: (
           <PrivateRoutes>
-            <UpdateForm />
+            <PremiumArticle />
           </PrivateRoutes>
         ),
       },
