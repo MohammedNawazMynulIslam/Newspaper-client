@@ -8,10 +8,16 @@ import {
   TableRow,
   Paper,
   Avatar,
+  DialogTitle,
+  DialogContent,
+  TextField,
+  DialogActions,
+  Dialog,
 } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { useState } from "react";
 
 const AllArticles = () => {
   const axiosSecure = useAxiosSecure();
@@ -27,6 +33,7 @@ const AllArticles = () => {
     },
   });
 
+  // handle approve article
   const handleApprove = async (article) => {
     axiosSecure.patch(`/article/approve/${article._id}`).then((res) => {
       console.log(res.data);
@@ -43,11 +50,31 @@ const AllArticles = () => {
     });
   };
 
-  const handleDecline = async (articleId) => {
-    // Implement logic to decline article using axios
-    // await axios.post(`/api/decline/${articleId}`);
-    // Invalidate the query to refetch data
-    // queryClient.invalidateQueries("articles");
+  const [reason, setReason] = useState("");
+  const [selectedArticle, setSelectedArticle] = useState(null);
+
+  const handleDecline = async (article) => {
+    setSelectedArticle(article);
+  };
+  const handleDeclineSubmit = async (article) => {
+    axiosSecure
+      .patch(`/article/decline/${article._id}`, { reason })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.modifiedCount > 0) {
+          // reset state value
+          setSelectedArticle(null);
+          setReason("");
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "warning",
+            title: "Decline",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
   };
 
   const handleDelete = async (articleId) => {
@@ -97,6 +124,7 @@ const AllArticles = () => {
                 <TableCell>{article?.status}</TableCell>
                 <TableCell>{article?.publisher}</TableCell>
                 <TableCell>
+                  {/* approve btn */}
                   <Button
                     onClick={() => handleApprove(article)}
                     variant="contained"
@@ -104,13 +132,15 @@ const AllArticles = () => {
                   >
                     Approve
                   </Button>
+                  {/* decline modal */}
                   <Button
-                    onClick={() => handleDecline(article.id)}
+                    onClick={() => handleDecline(article)}
                     variant="contained"
                     color="error"
                   >
                     Decline
                   </Button>
+
                   <Button
                     onClick={() => handleDelete(article.id)}
                     variant="contained"
@@ -125,6 +155,36 @@ const AllArticles = () => {
                   >
                     Make Premium
                   </Button>
+                  <Dialog
+                    open={Boolean(selectedArticle === article)}
+                    onClose={() => {
+                      setSelectedArticle(null);
+                      setReason("");
+                    }}
+                  >
+                    <DialogTitle>Write Reason for Decline</DialogTitle>
+                    <DialogContent>
+                      <TextField
+                        value={reason}
+                        onChange={(e) => setReason(e.target.value)}
+                        label="Reason"
+                        fullWidth
+                        variant="outlined"
+                        multiline
+                        rows={4}
+                        margin="dense"
+                      />
+                    </DialogContent>
+                    <DialogActions>
+                      <Button
+                        onClick={() => handleDeclineSubmit(article)}
+                        variant="contained"
+                        color="error"
+                      >
+                        Decline
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
                 </TableCell>
               </TableRow>
             ))}
