@@ -62,7 +62,6 @@ const AllArticles = () => {
       .then((res) => {
         console.log(res.data);
         if (res.data.modifiedCount > 0) {
-          // reset state value
           setSelectedArticle(null);
           setReason("");
           refetch();
@@ -77,18 +76,22 @@ const AllArticles = () => {
       });
   };
 
-  const handleDelete = async (articleId) => {
-    // Implement logic to delete article using axios
-    // await axios.delete(`/api/articles/${articleId}`);
-    // Invalidate the query to refetch data
-    // queryClient.invalidateQueries("articles");
-  };
+  const handleDelete = async (articleId) => {};
 
-  const handleMakePremium = async (articleId) => {
-    // Implement logic to make the article premium using axios
-    // await axios.post(`/api/premium/${articleId}`);
-    // Invalidate the query to refetch data
-    // queryClient.invalidateQueries("articles");
+  const handleMakePremium = async (article) => {
+    axiosSecure.patch(`/article/premium/${article._id}`).then((res) => {
+      console.log(res.data);
+      if (res.data.modifiedCount > 0) {
+        refetch();
+        Swal.fire({
+          position: "top-end",
+          icon: "warning",
+          title: "Promoted to Premium",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
   };
 
   return (
@@ -149,7 +152,7 @@ const AllArticles = () => {
                     Delete
                   </Button>
                   <Button
-                    onClick={() => handleMakePremium(article.id)}
+                    onClick={() => handleMakePremium(article)}
                     variant="contained"
                     color="primary"
                   >
