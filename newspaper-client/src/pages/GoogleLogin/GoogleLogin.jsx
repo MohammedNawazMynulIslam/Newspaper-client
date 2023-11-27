@@ -3,15 +3,25 @@ import { Button } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const GoogleLogin = () => {
   const { googleSignIn } = useAuth();
+  const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
 
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then((res) => {
         console.log(res.user);
+        const userDetail = {
+          email: res.user?.email,
+          name: res.user?.displayName,
+          photo: res.user?.photoURL,
+        };
+        axiosPublic.post("/users", userDetail).then((res) => {
+          console.log(res);
+        });
         Swal.fire({
           icon: "success",
           title: "Signed in successfully",

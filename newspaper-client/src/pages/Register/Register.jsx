@@ -10,39 +10,59 @@ import login from "../../assets/login.json";
 
 import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Register = () => {
+  const axiosPublic = useAxiosPublic();
   const { createUser } = useAuth();
   const navigate = useNavigate();
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
 
     const form = e.target;
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(name, email, password);
+    const photoURL = form.photoURL.value;
+    console.log(name, email, password, photoURL);
 
-    createUser(email, password)
-      .then((res) => {
-        console.log(res);
+    try {
+      // Create user
+      const res = await createUser(email, password);
+
+      // Assuming createUser returns user information in the response
+      console.log(res);
+
+      // Make an additional Axios request to send user information to "/users"
+      const userInfo = {
+        name: name,
+        email: email,
+        photoURL: photoURL, // Add the photoURL property
+      };
+
+      const userRes = await axiosPublic.post("/users", userInfo);
+
+      if (userRes.data.insertedId) {
         Swal.fire({
           icon: "success",
-          title: "Signed in successfully",
+          title: "Signed up successfully",
           showConfirmButton: false,
           timer: 1500,
         });
-      })
-      .catch((error) => {
-        console.error(error);
 
-        Swal.fire({
-          icon: "error",
-          title: "Login failed",
-          text: "Invalid email or password",
-        });
+        // Redirect to the desired page after successful registration
+        navigate("/");
+      }
+    } catch (error) {
+      console.error(error);
+
+      Swal.fire({
+        icon: "error",
+        title: "Registration failed",
+        text: "Failed to register user",
       });
+    }
   };
   return (
     <>
@@ -93,6 +113,14 @@ const Register = () => {
             type="password"
             name="password"
             autoComplete="current-password"
+          />
+          <TextField
+            margin="normal"
+            fullWidth
+            id="photoURL"
+            label="Profile Picture URL"
+            name="photoURL"
+            autoComplete="photoURL"
           />
           <Button
             type="submit"

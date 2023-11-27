@@ -2,6 +2,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import { FaUsers } from "react-icons/fa";
 import { MdArticle } from "react-icons/md";
 import { FaPenAlt } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
 
 const Dashboard = () => {
   return (
@@ -10,7 +11,8 @@ const Dashboard = () => {
         <ul className="menu p-4">
           <li>
             <NavLink to="/dashboard/allUsers">
-              <FaUsers></FaUsers> ALL Users
+              <FaUsers></FaUsers>
+              ALL Users
             </NavLink>
           </li>
           <li>
@@ -23,6 +25,12 @@ const Dashboard = () => {
             <NavLink to="/dashboard/allPublishers">
               <FaPenAlt />
               ALL Publishers
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/">
+              <FaHome />
+              Home
             </NavLink>
           </li>
         </ul>
