@@ -14,19 +14,12 @@ import {
   Box,
   TextField,
 } from "@mui/material";
-import { useQuery, useMutation } from "@tanstack/react-query"; // Assuming you are using React Query for data fetching and mutation
+import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 import { Helmet } from "react-helmet-async";
+import { useParams } from "react-router-dom";
 
-// Replace these with your actual query and mutation functions
-
-const updateArticle = async () => {
-  /* Your update article logic */
-};
-const deleteArticle = async () => {
-  /* Your delete article logic */
-};
 const fetchDeclineReason = async () => {
   /* Your fetch decline reason logic */
 };
@@ -35,10 +28,16 @@ const MyArticles = () => {
   const [selectedArticle, setSelectedArticle] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [openDeclineReasonModal, setOpenDeclineReasonModal] = useState(false);
+  const { id } = useParams();
   const [reason, setReason] = useState("");
   const axiosSecure = useAxiosSecure();
-  // only title update for test
-  // const [updatedTitle, setUpdatedTitle] = useState("");
+  const [updatedData, setUpdatedData] = useState({
+    title: "",
+    publisher: "",
+    tags: "",
+    image: "",
+    description: "",
+  });
 
   const {
     data: articles,
@@ -60,9 +59,6 @@ const MyArticles = () => {
     },
   });
   console.log(articles);
-  const updateMutation = useMutation(updateArticle);
-  const deleteMutation = useMutation(deleteArticle);
-  const fetchDeclineReasonMutation = useMutation(fetchDeclineReason);
 
   // show decline reason
   const handleShowDeclineReason = async (articleId) => {
@@ -104,11 +100,50 @@ const MyArticles = () => {
       Swal.fire("Error", "Failed to delete article", "error");
     }
   };
-  // update
-  const handleUpdate = (id) => {
-    // const res= axiosSecure.put(`/article/${id}`)
-    console.log("update");
+  // modal
+  const handleOpenUpdateModal = (article) => {
+    setSelectedArticle(article);
+    setUpdatedData({
+      title: article.title,
+      publisher: article.publisher,
+      tags: article.tags, // Assuming tags is an array
+      image: article.image,
+      description: article.description,
+    });
+    setOpenModal(true);
   };
+  // update
+  const handleUpdate = async () => {
+    console.log("Update article with ID:", selectedArticle._id);
+    try {
+      const updateRes = await axiosSecure.put(
+        `/article/${selectedArticle._id}`,
+        updatedData
+      );
+      console.log("Update Response:", updateRes);
+      if (updateRes.status === 200) {
+        await refetch();
+        Swal.fire("Updated!", "Your article has been updated.", "success");
+      } else {
+        Swal.fire("Error", "Failed to update article", "error");
+      }
+    } catch (error) {
+      console.error("Error updating article:", error);
+      Swal.fire("Error", "Failed to update article", "error");
+    } finally {
+      // Close the modal
+      setOpenModal(false);
+      setSelectedArticle(null);
+      setUpdatedData({
+        title: "",
+        publisher: "",
+        tags: "",
+        image: "",
+        description: "",
+      });
+    }
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -169,14 +204,15 @@ const MyArticles = () => {
                 <TableCell>{article.isPremium ? "Yes" : "No"}</TableCell>
                 <TableCell>
                   {/* Add a button to update the article */}
+                  {/* <Link to={`/updateForm/${id}`}> */}
                   <Button
                     variant="outlined"
                     color="primary"
-                    onClick={handleUpdate}
+                    onClick={() => handleOpenUpdateModal(article)}
                   >
                     Update
                   </Button>
-                  {/* Modal for updating article */}
+                  {/* </Link> */}
                 </TableCell>
                 <TableCell>
                   {/* Add a button to delete the article */}
@@ -193,6 +229,77 @@ const MyArticles = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      {/* Modal for updating article */}
+      <Modal open={openModal} onClose={() => setOpenModal(false)}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 400,
+            bgcolor: "background.paper",
+            border: "2px solid #000",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <Typography variant="h6" component="div" gutterBottom>
+            Update Article
+          </Typography>
+          <TextField
+            label="Title"
+            value={updatedData.title}
+            onChange={(e) =>
+              setUpdatedData({ ...updatedData, title: e.target.value })
+            }
+          />
+          <TextField
+            label="Publisher"
+            value={updatedData.publisher}
+            onChange={(e) =>
+              setUpdatedData({ ...updatedData, publisher: e.target.value })
+            }
+          />
+          <TextField
+            label="Tags"
+            value={updatedData.tags}
+            onChange={(e) =>
+              setUpdatedData({ ...updatedData, tags: e.target.value })
+            }
+          />
+          <TextField
+            label="Image"
+            value={updatedData.image}
+            onChange={(e) =>
+              setUpdatedData({ ...updatedData, image: e.target.value })
+            }
+          />
+          <TextField
+            label="Description"
+            multiline
+            rows={4}
+            value={updatedData.description}
+            onChange={(e) =>
+              setUpdatedData({ ...updatedData, description: e.target.value })
+            }
+          />
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => handleUpdate(selectedArticle._id)}
+          >
+            Update
+          </Button>
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={() => setOpenModal(false)}
+          >
+            Cancel
+          </Button>
+        </Box>
+      </Modal>
 
       {/* Modal to show decline reason */}
       <Modal

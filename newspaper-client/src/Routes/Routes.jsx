@@ -11,6 +11,7 @@ import Subscription from "../pages/Subscription/Subscription";
 import Payment from "../pages/Payment/Payment";
 import Profile from "../pages/Profile/Profile";
 import MyArticles from "../pages/MyArticle/MyArticles";
+import UpdateForm from "../pages/MyArticle/UpdateForm";
 
 const router = createBrowserRouter([
   {
@@ -79,6 +80,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <MyArticles />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/updateForm/:id",
+        element: (
+          <PrivateRoutes>
+            <UpdateForm />
           </PrivateRoutes>
         ),
       },
