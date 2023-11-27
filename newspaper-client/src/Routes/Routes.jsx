@@ -13,6 +13,10 @@ import Profile from "../pages/Profile/Profile";
 import MyArticles from "../pages/MyArticle/MyArticles";
 
 import PremiumArticle from "../pages/PremiumArticle/PremiumArticle";
+import Dashboard from "../pages/Dashboard/Dashboard";
+import AllArticles from "../pages/Dashboard/AllArticles/AllArticles";
+import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
+import AllPublishers from "../pages/Dashboard/AllPublishers/AllPublishers";
 
 const router = createBrowserRouter([
   {
@@ -91,6 +95,28 @@ const router = createBrowserRouter([
             <PremiumArticle />
           </PrivateRoutes>
         ),
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoutes>
+        <Dashboard />
+      </PrivateRoutes>
+    ),
+    children: [
+      {
+        path: "allUsers",
+        element: <AllUsers />,
+      },
+      {
+        path: "allArticles",
+        element: <AllArticles />,
+      },
+      {
+        path: "allPublishers",
+        element: <AllPublishers />,
       },
     ],
   },

@@ -48,7 +48,8 @@ const Navbar = () => {
         { label: "Add Articles", link: "/add-articles" },
         { label: "All Articles", link: "/all-articles" },
         { label: "Subscription", link: "/subscription" },
-        user.isAdmin && { label: "Dashboard", link: "/dashboard" },
+        //  user.isAdmin &&
+        { label: "Dashboard", link: "/dashboard" },
         { label: "My Articles", link: "/my-articles" },
         user.hasSubscription && {
           label: "Premium Articles",
