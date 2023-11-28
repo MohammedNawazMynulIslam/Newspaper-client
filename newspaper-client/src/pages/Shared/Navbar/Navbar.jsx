@@ -14,6 +14,8 @@ import MenuItem from "@mui/material/MenuItem";
 import { Link as RouterLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import useAdmin from "../../../hooks/useAdmin";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -21,6 +23,7 @@ const Navbar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const settings = ["Profile"];
   const [isAdmin] = useAdmin();
+  const axiosSecure = useAxiosSecure();
   const handleLogOut = () => {
     logOut()
       .then(() => {})
@@ -42,16 +45,31 @@ const Navbar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
+  const { data: premiumUsers = [] } = useQuery({
+    queryKey: ["premiumUsers"],
+    queryFn: async () => {
+      try {
+        const res = await axiosSecure.get("/users/premium", {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          },
+        });
+        return res.data;
+      } catch (error) {
+        console.error("Error fetching premium users", error);
+      }
+    },
+  });
+  const premiumTab = premiumUsers.length > 0;
   const pages = user
     ? [
         { label: "Home", link: "/" },
         { label: "Add Articles", link: "/add-articles" },
         { label: "All Articles", link: "/all-articles" },
         { label: "Subscription", link: "/subscription" },
-        isAdmin && { label: "Dashboard", link: "/dashboard" },
+        // isAdmin ? { label: "Dashboard", link: "/dashboard" } : null,
         { label: "My Articles", link: "/my-articles" },
-        user.hasSubscription && {
+        premiumTab && {
           label: "Premium Articles",
           link: "/premium-articles",
         },
@@ -174,7 +192,7 @@ const Navbar = () => {
                     </MenuItem>
                   )}
 
-                  {user.hasSubscription && (
+                  {user.premiumTaken && (
                     <MenuItem
                       component={RouterLink}
                       to="/premium-articles"
