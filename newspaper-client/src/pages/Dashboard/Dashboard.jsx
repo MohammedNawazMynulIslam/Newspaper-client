@@ -3,6 +3,7 @@ import { FaUsers } from "react-icons/fa";
 import { MdArticle } from "react-icons/md";
 import { FaPenAlt } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
+import PieChart from "./PieChart/PieChart";
 
 const Dashboard = () => {
   return (
@@ -12,19 +13,19 @@ const Dashboard = () => {
           <li>
             <NavLink to="/dashboard/allUsers">
               <FaUsers></FaUsers>
-              ALL Users
+              All Users
             </NavLink>
           </li>
           <li>
             <NavLink to="/dashboard/allArticles">
               <MdArticle />
-              ALL Articles
+              All Articles
             </NavLink>
           </li>
           <li>
             <NavLink to="/dashboard/allPublishers">
               <FaPenAlt />
-              ALL Publishers
+              Add Publishers
             </NavLink>
           </li>
           <li>
@@ -37,6 +38,7 @@ const Dashboard = () => {
       </div>
       <div className="flex-1">
         <Outlet />
+        <PieChart />
       </div>
     </div>
   );
