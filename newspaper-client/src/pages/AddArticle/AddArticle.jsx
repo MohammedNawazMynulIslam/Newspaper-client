@@ -1,14 +1,20 @@
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
-
+import Select from "react-select";
+import { useEffect, useState } from "react";
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const AddArticle = () => {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, control } = useForm();
+  const tagOptions = [
+    { value: "tag1", label: "Tag 1" },
+    { value: "tag2", label: "Tag 2" },
+  ];
+  const [publishers, setPublishers] = useState([]);
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
 
@@ -21,11 +27,12 @@ const AddArticle = () => {
       },
     });
     if (res.data.success) {
+      const publisherName = data.publisher ? data.publisher.label : "";
       const article = {
         title: data.title,
-        publisher: data.publisher,
+        publisher: publisherName,
         image: res.data.data.display_url,
-        tags: data.tags,
+        tags: data.tags.map((tag) => tag.label),
         description: data.description,
       };
       const articleRes = await axiosSecure.post("/article", article);
@@ -42,6 +49,17 @@ const AddArticle = () => {
       }
     }
   };
+  useEffect(() => {
+    const publishers = async () => {
+      try {
+        const res = await axiosPublic.get("/publishers");
+        setPublishers(res.data);
+      } catch (error) {
+        console.error("error fetching", error);
+      }
+    };
+    publishers();
+  }, [axiosPublic]);
 
   return (
     <div>
@@ -91,15 +109,25 @@ const AddArticle = () => {
           >
             Publisher
           </label>
-          <input
-            type="text"
-            id="publisher"
-            {...register("publisher", { required: true })}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="publisher"
-            required
+          <Controller
+            name="publisher"
+            control={control}
+            render={({ field }) => (
+              <Select
+                {...field}
+                options={publishers.map((publisher) => ({
+                  value: publisher.id,
+                  label: publisher.name,
+                }))}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Select Publisher"
+                isClearable
+              />
+            )}
+            rules={{ required: "Publisher is required" }}
           />
         </div>
+
         {/* tags */}
         <div className="mb-5">
           <label
@@ -108,13 +136,19 @@ const AddArticle = () => {
           >
             Tags
           </label>
-          <input
-            type="text"
-            {...register("tags", { required: true })}
-            id="tags"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="tags"
-            required
+          <Controller
+            name="tags"
+            control={control}
+            render={({ field }) => (
+              <Select
+                {...field}
+                options={tagOptions}
+                isMulti
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Select Tags"
+              />
+            )}
+            rules={{ required: "Tags are required" }}
           />
         </div>
         {/* description */}
