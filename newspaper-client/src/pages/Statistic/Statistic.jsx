@@ -12,7 +12,7 @@ const Statistic = () => {
   useEffect(() => {
     const result = async () => {
       try {
-        const response = await axiosPublic.get("/users"); // Adjust the endpoint accordingly
+        const response = await axiosPublic.get("/users");
 
         const allUsers = response.data.length;
         const normalUsers = response.data.filter(

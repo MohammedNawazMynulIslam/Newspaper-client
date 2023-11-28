@@ -8,19 +8,49 @@ import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import Swal from "sweetalert2";
 
 const SubscriptionPage = () => {
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
   const [subscriptionPeriod, setSubscriptionPeriod] = React.useState("1");
 
+  const { data: users = [], refetch } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/users", {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("access-token")}`,
+        },
+      });
+      return res.data;
+    },
+  });
   const handlePeriodChange = (event) => {
     setSubscriptionPeriod(event.target.value);
   };
 
   const handleSubscribe = () => {
-    // Handle navigation to the payment page or perform other actions
+    users.forEach((user) => {
+      axiosSecure.patch(`/users/subscribe/${user._id}`).then((res) => {
+        console.log(res.data);
+        if (res.data.modifiedCount > 0) {
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Subscribe successful",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
+    });
     navigate("/payment");
   };
+  // Handle navigation to the payment page or perform other actions
 
   return (
     <>
@@ -32,6 +62,7 @@ const SubscriptionPage = () => {
           <Typography variant="h4" textAlign={"center"} gutterBottom>
             Subscribe
           </Typography>
+
           <img
             src="https://i.ibb.co/1R74RWx/view-3d-man-with-tech-device-23-2150710048.jpg"
             alt="Subscription Banner"
@@ -87,10 +118,11 @@ const SubscriptionPage = () => {
 
             <Divider sx={{ my: 2 }} />
 
+            {/* Single Subscribe Now button for all users */}
             <Button
               variant="contained"
               color="primary"
-              onClick={handleSubscribe}
+              onClick={() => handleSubscribe()}
             >
               Subscribe Now
             </Button>

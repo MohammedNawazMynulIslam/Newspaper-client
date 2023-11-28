@@ -23,6 +23,7 @@ const Plans = () => {
     "cancel anytime",
     "15 hours/month of listening time from our audiobooks subscribe catalog",
   ];
+
   return (
     <Container maxWidth="md" style={{ marginTop: 20 }}>
       <Typography variant="h4" style={{ textAlign: "center" }} gutterBottom>
@@ -109,9 +110,11 @@ const Plans = () => {
                   <li key={index}>{point}</li>
                 ))}
               </ul>
+
               <Button variant="contained" color="warning" fullWidth>
                 Get Premium Duo
               </Button>
+
               <Typography
                 variant="body2"
                 color="white"
@@ -155,9 +158,11 @@ const Plans = () => {
                   <li key={index}>{point}</li>
                 ))}
               </ul>
+
               <Button variant="contained" color="secondary" fullWidth>
                 Get Premium Family
               </Button>
+
               <Typography
                 variant="body2"
                 color="white"
