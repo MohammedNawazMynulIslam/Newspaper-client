@@ -12,7 +12,10 @@ import {
   TableRow,
   Paper,
   Button,
+  TablePagination,
 } from "@mui/material";
+import React, { useState } from "react";
+
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
   const { data: users = [], refetch } = useQuery({
@@ -26,6 +29,10 @@ const AllUsers = () => {
       return res.data;
     },
   });
+
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(4);
+
   const handleMakeAdmin = (user) => {
     axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
       console.log(res.data);
@@ -41,28 +48,38 @@ const AllUsers = () => {
       }
     });
   };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   return (
     <div className="mx-12">
-      <div className="justify-evenly my-4 mx-auto">
-        {/* <h2 className="text-5xl text-center ">ALL Users {users.length}</h2> */}
-        <>
-          <Helmet>
-            <title>Your App | All Users</title>
-          </Helmet>
-          <div>
-            <h1 className="text-center mt-10 text-4xl ">All Users</h1>
-            <TableContainer component={Paper}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Email</TableCell>
-                    <TableCell>Profile Picture</TableCell>
-                    <TableCell>Actions</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {users.map((user) => (
+      <>
+        <Helmet>
+          <title>Your App | All Users</title>
+        </Helmet>
+        <div>
+          <h1 className="text-center mt-10 text-4xl">All Users</h1>
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Email</TableCell>
+                  <TableCell>Profile Picture</TableCell>
+                  <TableCell>Actions</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {users
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((user) => (
                     <TableRow key={user._id}>
                       <TableCell>{user.name}</TableCell>
                       <TableCell>{user.email}</TableCell>
@@ -93,12 +110,20 @@ const AllUsers = () => {
                       </TableCell>
                     </TableRow>
                   ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </div>
-        </>
-      </div>
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[4]}
+            component="div"
+            count={users.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </div>
+      </>
     </div>
   );
 };

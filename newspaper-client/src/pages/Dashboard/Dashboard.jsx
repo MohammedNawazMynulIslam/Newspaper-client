@@ -13,6 +13,12 @@ const Dashboard = () => {
       <div className="w-64 min-h-full bg-blue-500">
         <ul className="menu p-4">
           <li>
+            <NavLink to="/dashboard/adminHome">
+              <FaHome></FaHome>
+              Admin Home
+            </NavLink>
+          </li>
+          <li>
             <NavLink to="/dashboard/allUsers">
               <FaUsers></FaUsers>
               All Users
@@ -38,11 +44,12 @@ const Dashboard = () => {
           </li>
         </ul>
       </div>
+
       <div className="flex-1">
-        <Outlet />
-        <PieChart />
+        {/* <PieChart />
         <LineGraph />
-        <Bar />
+        <Bar /> */}
+        <Outlet />
       </div>
     </div>
   );

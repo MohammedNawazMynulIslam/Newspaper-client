@@ -18,6 +18,7 @@ import AllArticles from "../pages/Dashboard/AllArticles/AllArticles";
 import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 import AllPublishers from "../pages/Dashboard/AllPublishers/AllPublishers";
 import Error from "../pages/Error/Error";
+import AdHome from "../pages/Dashboard/AdHome/AdHome";
 
 const router = createBrowserRouter([
   {
@@ -108,6 +109,10 @@ const router = createBrowserRouter([
       </PrivateRoutes>
     ),
     children: [
+      {
+        path: "adminHome",
+        element: <AdHome />,
+      },
       {
         path: "allUsers",
         element: <AllUsers />,
