@@ -21,12 +21,13 @@ const AllArticle = () => {
     queryKey: ["article", page, searchQuery, selectedPublisher, selectedTags],
     queryFn: async ({ pageParam = 1 }) => {
       try {
-        const res = await axiosSecure.get("/article", {
+        const res = await axiosSecure.get("/article/approve", {
           params: {
             page: pageParam,
             search: searchQuery,
             publisher: selectedPublisher,
             tags: selectedTags.join(","),
+            isApproved: true,
           },
           headers: {
             authorization: `Bearer ${localStorage.getItem("access-token")}`,
