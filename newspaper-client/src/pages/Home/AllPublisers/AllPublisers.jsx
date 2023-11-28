@@ -1,59 +1,70 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import * as React from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { Grid } from "@mui/material";
 
-const AllPublisers = () => {
+const AllPublishers = () => {
   const axiosSecure = useAxiosSecure();
-  const { data: publisher = [] } = useQuery({
-    queryKey: ["allpubliser"],
+  const {
+    data: publishers = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["allpublishers"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/publishers", {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("access-token")}`,
-        },
-      });
-      return res.data;
+      try {
+        const res = await axiosSecure.get("/publishers", {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          },
+        });
+        return res.data;
+      } catch (error) {
+        console.error("Error fetching publishers:", error);
+        throw new Error("Failed to fetch publishers");
+      }
     },
   });
-  console.log(publisher);
+  console.log(publishers);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error fetching data</div>;
+  }
+
   return (
-    <div>
-      <Typography
-        variant="h4"
-        gutterBottom
-        textAlign={"center"}
-        marginTop={"50px"}
-        marginBottom={"50px"}
-      >
-        All Publisher
-      </Typography>
-      <Grid container spacing={2}>
-        {publisher.map((publisher) => (
-          <Grid key={publisher.id} item xs={12} sm={6} md={4} lg={4}>
-            <Card sx={{ maxWidth: 345 }}>
-              <CardMedia
-                sx={{ height: 140 }}
-                image={publisher.logo}
-                title={publisher.name}
+    <>
+      <h2 className="text-center my-10 text-3xl font-medium">All Publishers</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 w-full lg:grid-cols-3">
+        {publishers.map((publisher) => (
+          <div
+            key={publisher.id}
+            className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+          >
+            <a href="#">
+              <img
+                className="rounded-t-lg"
+                src={publisher.image} // Assuming you have a logo property in your publisher object
+                alt={publisher.name}
               />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {publisher.name}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+            </a>
+            <div className="p-5">
+              <a href="#">
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                  {publisher.title}
+                </h5>
+              </a>
+              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                {/* Use data from the publisher object */}
+                {/* For example: {publisher.description} */}
+              </p>
+            </div>
+          </div>
         ))}
-      </Grid>
-    </div>
+      </div>
+    </>
   );
 };
 
-export default AllPublisers;
+export default AllPublishers;
