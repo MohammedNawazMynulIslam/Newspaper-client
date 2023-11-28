@@ -2,18 +2,20 @@ import useAuth from "../../hooks/useAuth";
 import { Button } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const GoogleLogin = () => {
   const { googleSignIn } = useAuth();
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then((res) => {
         console.log(res.user);
+
         const userDetail = {
           email: res.user?.email,
           name: res.user?.displayName,
@@ -21,6 +23,7 @@ const GoogleLogin = () => {
         };
         axiosPublic.post("/users", userDetail).then((res) => {
           console.log(res);
+          navigate(location?.state ? location.state : "/");
         });
         Swal.fire({
           icon: "success",

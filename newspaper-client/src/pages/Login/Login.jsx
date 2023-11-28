@@ -39,8 +39,9 @@ const Login = () => {
           showConfirmButton: false,
           timer: 1500,
         });
+        const redirectPath = location.state ? location.state : "/";
 
-        navigate("/");
+        navigate(redirectPath);
       })
       .catch((error) => {
         console.error(error);
