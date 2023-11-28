@@ -20,15 +20,13 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
 
-const fetchDeclineReason = async () => {
-  /* Your fetch decline reason logic */
-};
-
 const MyArticles = () => {
   const [selectedArticle, setSelectedArticle] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [openDeclineReasonModal, setOpenDeclineReasonModal] = useState(false);
   const { id } = useParams();
+  const [reasonModalOpen, setReasonModalOpen] = useState(false);
+  const [declineReason, setDeclineReason] = useState("");
   const [reason, setReason] = useState("");
   const axiosSecure = useAxiosSecure();
   const [updatedData, setUpdatedData] = useState({
@@ -38,7 +36,9 @@ const MyArticles = () => {
     image: "",
     description: "",
   });
-
+  // const fetchDeclineReason = async () => {
+  //   /* Your fetch decline reason logic */
+  // };
   const {
     data: articles,
     isLoading,
@@ -61,12 +61,11 @@ const MyArticles = () => {
   console.log(articles);
 
   // show decline reason
-  const handleShowDeclineReason = async (articleId) => {
-    setSelectedArticle(articleId);
-
+  const handleShowDeclineReason = async (id) => {
+    setSelectedArticle(id);
     try {
-      const res = await fetchDeclineReasonMutation.mutateAsync(articleId);
-      setReason(res.data.reason);
+      const res = await axiosSecure.get(`/articles/declined/${id}`);
+      setReason(res.data.declineReason);
       setOpenDeclineReasonModal(true);
     } catch (error) {
       console.error("Error fetching decline reason:", error.message);
@@ -106,7 +105,7 @@ const MyArticles = () => {
     setUpdatedData({
       title: article.title,
       publisher: article.publisher,
-      tags: article.tags, // Assuming tags is an array
+      tags: article.tags,
       image: article.image,
       description: article.description,
     });
@@ -186,20 +185,20 @@ const MyArticles = () => {
                   </Button>
                 </TableCell>
                 <TableCell>
-                  {article.status === "declined" && (
+                  {article.isApproved && "Approved"}
+                  {article.Decline && (
                     <>
                       Declined{" "}
                       <Button
                         variant="outlined"
                         color="primary"
-                        onClick={() => handleShowDeclineReason(article.id)}
+                        onClick={() => handleShowDeclineReason(article._id)}
                       >
                         View Reason
                       </Button>
                     </>
                   )}
-                  {article.status === "approved" && "Approved"}
-                  {article.status === "pending" && "Pending"}
+                  {!article.isApproved && !article.Decline && "Pending"}
                 </TableCell>
                 <TableCell>{article.isPremium ? "Yes" : "No"}</TableCell>
                 <TableCell>

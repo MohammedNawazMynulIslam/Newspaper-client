@@ -1,20 +1,8 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Button,
-  Typography,
-  Modal,
-  Box,
-  TextField,
-} from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
+import Tilt from "react-parallax-tilt";
+import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 
 const PremiumArticle = () => {
@@ -30,7 +18,6 @@ const PremiumArticle = () => {
           },
         });
 
-        // Assuming you have an "isPremium" property in your articles
         const premiumArticles = res.data.filter((article) => article.isPremium);
 
         return premiumArticles;
@@ -49,43 +36,43 @@ const PremiumArticle = () => {
       <Helmet>
         <title>Newspaper || Premium Articles</title>
       </Helmet>
-      <Typography
-        variant="h4"
-        textAlign={"center"}
-        marginTop={"40px"}
-        gutterBottom
-      >
+      <h1 className="text-center my-9 text-3xl font-medium">
         Premium Articles
-      </Typography>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Serial No</TableCell>
-              <TableCell>Article Title</TableCell>
-              <TableCell>Publisher</TableCell>
-              <TableCell>Description</TableCell>
-              <TableCell>Details</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {articles.map((article, index) => (
-              <TableRow key={article.id}>
-                <TableCell>{index + 1}</TableCell>
-                <TableCell>{article.title}</TableCell>
-                <TableCell>{article.publisher}</TableCell>
-                <TableCell>{article.description}</TableCell>
-                <TableCell>
-                  {/* Add a button to show article details */}
-                  <Button variant="outlined" color="primary">
-                    <Link to={`/article/${article.id}`}>Details</Link>
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      </h1>
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
+        {articles.map((article) => (
+          <Tilt key={article.id} tiltMaxAngleX={15} tiltMaxAngleY={15}>
+            <div
+              style={{
+                border: "1px solid #ccc",
+                borderRadius: "8px",
+                margin: "16px",
+                overflow: "hidden",
+                maxWidth: "300px",
+              }}
+            >
+              <img
+                src={article.image}
+                alt={article.title}
+                style={{ width: "100%", height: "300px", objectFit: "cover" }}
+              />
+              <div style={{ padding: "16px" }}>
+                <h2>{article.title}</h2>
+                <p>{article.description}</p>
+                <p>Publisher: {article.publisher}</p>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  component={Link}
+                  // to={`/article/${article.id}`}
+                >
+                  Details
+                </Button>
+              </div>
+            </div>
+          </Tilt>
+        ))}
+      </div>
     </div>
   );
 };
