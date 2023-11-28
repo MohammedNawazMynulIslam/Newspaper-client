@@ -4,6 +4,8 @@ import { MdArticle } from "react-icons/md";
 import { FaPenAlt } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
 import PieChart from "./PieChart/PieChart";
+import LineGraph from "../LineGraph/LineGraph";
+import Bar from "./Bar/Bar";
 
 const Dashboard = () => {
   return (
@@ -39,6 +41,8 @@ const Dashboard = () => {
       <div className="flex-1">
         <Outlet />
         <PieChart />
+        <LineGraph />
+        <Bar />
       </div>
     </div>
   );
