@@ -6,20 +6,20 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 const TrendingArticles = () => {
-  const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
   const { data: trending = [] } = useQuery({
     queryKey: ["trending"],
     queryFn: async () => {
       try {
-        const res = await axiosSecure.get("/article", {
+        const res = await axiosPublic.get("/article", {
           headers: {
             authorization: `Bearer ${localStorage.getItem("access-token")}`,
           },
         });
 
-        // Assuming your response has a `data` property containing the articles
         return res.data;
       } catch (error) {
         console.error("Error fetching trending articles", error);
@@ -44,6 +44,7 @@ const TrendingArticles = () => {
           <Card key={index} style={{ marginBottom: 10 }}>
             <CardContent>
               <img
+                className="w-fit h-[400px]"
                 src={article.image}
                 alt={article.title}
                 style={{ width: "100%" }}

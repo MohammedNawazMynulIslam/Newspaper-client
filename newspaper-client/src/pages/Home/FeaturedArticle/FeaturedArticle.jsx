@@ -78,11 +78,11 @@ const FeaturedArticlesSection = () => {
       <Grid container spacing={3}>
         {currentFeaturedArticles.map((article, index) => (
           <Grid item xs={12} md={4} key={index}>
-            <Card>
+            <Card style={{ height: "400px" }}>
               <img
                 src={article.image}
                 alt={article.title}
-                style={{ width: "100%" }}
+                style={{ width: "100%", height: "200px" }}
               />
               <CardContent>
                 <Typography variant="h6" gutterBottom>

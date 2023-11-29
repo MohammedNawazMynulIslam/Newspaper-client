@@ -25,17 +25,14 @@ const Home = () => {
     setShowModal(false);
   };
   useEffect(() => {
-    // Set a timeout for 10 seconds to show the modal
     const timeoutId = setTimeout(() => {
       setShowModal(true);
     }, 10000);
 
-    // Clear the timeout when the component unmounts or when the modal is closed
     return () => clearTimeout(timeoutId);
-  }, []); // Empty dependency array ensures the effect runs once on mount
+  }, []);
 
   const handleSubscription = () => {
-    // Navigate to the subscription page
     navigate("/subscription");
   };
   return (

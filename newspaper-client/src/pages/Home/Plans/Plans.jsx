@@ -64,7 +64,12 @@ const Plans = () => {
                   <li key={index}>{point}</li>
                 ))}
               </ul>
-              <Button variant="contained" color="primary" fullWidth>
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                style={{ marginTop: 50 }}
+              >
                 Try Free for 1 Month
               </Button>
               <Typography
@@ -111,7 +116,12 @@ const Plans = () => {
                 ))}
               </ul>
 
-              <Button variant="contained" color="warning" fullWidth>
+              <Button
+                variant="contained"
+                color="warning"
+                fullWidth
+                style={{ marginTop: 60 }}
+              >
                 Get Premium Duo
               </Button>
 
@@ -159,7 +169,12 @@ const Plans = () => {
                 ))}
               </ul>
 
-              <Button variant="contained" color="secondary" fullWidth>
+              <Button
+                variant="contained"
+                color="secondary"
+                fullWidth
+                style={{ marginTop: 10 }}
+              >
                 Get Premium Family
               </Button>
 
