@@ -11,7 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { Link as RouterLink } from "react-router-dom";
+import { Link, Link as RouterLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import useAdmin from "../../../hooks/useAdmin";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
@@ -23,7 +23,9 @@ const Navbar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const settings = ["Profile"];
   const [isAdmin] = useAdmin();
+  const [premiumTaken, setPremiumTaken] = React.useState(false);
   const axiosSecure = useAxiosSecure();
+  console.log({ user });
   const handleLogOut = () => {
     logOut()
       .then(() => {})
@@ -60,7 +62,11 @@ const Navbar = () => {
       }
     },
   });
-  const premiumTab = premiumUsers.length > 0;
+  const isPremium = premiumUsers;
+  console.log(isPremium);
+  const isPremiumUser = isPremium.some(
+    (premiumUser) => premiumUser.email === user?.email
+  );
   const pages = user
     ? [
         { label: "Home", link: "/" },
@@ -69,7 +75,7 @@ const Navbar = () => {
         { label: "Subscription", link: "/subscription" },
         // isAdmin ? { label: "Dashboard", link: "/dashboard" } : null,
         { label: "My Articles", link: "/my-articles" },
-        premiumTab && {
+        isPremiumUser && {
           label: "Premium Articles",
           link: "/premium-articles",
         },
@@ -192,7 +198,7 @@ const Navbar = () => {
                     </MenuItem>
                   )}
 
-                  {user.premiumTaken && (
+                  {premiumTaken && (
                     <MenuItem
                       component={RouterLink}
                       to="/premium-articles"
@@ -235,11 +241,12 @@ const Navbar = () => {
             </Box>
             {user && (
               <Box>
-                <Tooltip title="Open settings">
+                <Link to="/profile">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar alt="" src={user?.photoURL} />
                   </IconButton>
-                </Tooltip>
+                </Link>
+
                 <Menu
                   sx={{ mt: "45px" }}
                   id="menu-appbar"

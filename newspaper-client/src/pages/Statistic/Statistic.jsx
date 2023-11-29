@@ -16,10 +16,10 @@ const Statistic = () => {
 
         const allUsers = response.data.length;
         const normalUsers = response.data.filter(
-          (user) => !user.isPremium
+          (user) => !user.premiumTaken
         ).length;
         const premiumUsers = response.data.filter(
-          (user) => user.isPremium
+          (user) => user.premiumTaken
         ).length;
 
         setUserStats({

@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { Typewriter } from "react-simple-typewriter";
 import FeaturedArticlesSection from "../FeaturedArticle/FeaturedArticle";
 import Plans from "../Plans/Plans";
 import Reviews from "../Reviews/Reviews";
@@ -42,7 +43,21 @@ const Home = () => {
       <Helmet>
         <title>Newspaper || Home</title>
       </Helmet>
-
+      <div className="text-center my-11 text-3xl font-medium">
+        <Typewriter
+          words={[
+            "Welcome to the Newspaper!",
+            "Stay Informed!",
+            "Discover Exciting Stories!",
+          ]}
+          loop={100}
+          cursor
+          cursorStyle="_"
+          typeSpeed={70}
+          deleteSpeed={50}
+          delaySpeed={1000}
+        />
+      </div>
       <TrendingArticles />
       <AllPublisers />
       {/* Statistic */}
