@@ -28,4 +28,5 @@ Navigate with confidence through our dynamic admin dashboard, featuring:
 3. **Admin Control Hub:**  
    Navigate the content landscape with precision through a dynamic admin dashboard, where user empowerment and transparent feedback drive a high-quality content standard.
 
-------------------------------------------------------------------------Live site:https://newspaper-842f7.web.app---------------------------------------------------------
+
+Live site:https://newspaper-842f7.web.app
