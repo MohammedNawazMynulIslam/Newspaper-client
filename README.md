@@ -17,4 +17,15 @@ Navigate with confidence through our dynamic admin dashboard, featuring:
 - **Content Management Mastery:** Approve, decline, or delete articles with ease, maintaining a high-quality content standard.
 - **Transparent Feedback:** If an article faces rejection, users receive constructive feedback, fostering continuous improvement.
 
-Live site:https://newspaper-842f7.web.app
+💎 **Key Features:**
+
+1. **Dynamic Storytelling:**  
+   Craft compelling narratives effortlessly with a user-friendly platform that seamlessly integrates React, Material-UI, and Lottie Animation.
+
+2. **Exclusive Insights:**  
+   Unlock a premium realm of knowledge with a subscription, accessing curated content backed by MongoDB, Express, Node.js, and Firebase.
+
+3. **Admin Control Hub:**  
+   Navigate the content landscape with precision through a dynamic admin dashboard, where user empowerment and transparent feedback drive a high-quality content standard.
+
+------------------------------------------------------------------------Live site:https://newspaper-842f7.web.app---------------------------------------------------------
