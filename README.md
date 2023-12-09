@@ -6,7 +6,9 @@
 - **Axios** 🚀: Facilitating smooth data communication between the frontend and backend.
 - **Tanstack Query** 🔍: Streamlining data fetching and management.
 - **Lottie Animation** 🎉: Adding a touch of animation magic to captivate users.
+- **React Count Up** : To show total user ,normal and premium users.
 - **Firebase** 🔥: Leveraging cloud services for seamless integration and scalability also for hosting the front-end.
+  
 
 
 🔒 **Admin Control Hub:**
