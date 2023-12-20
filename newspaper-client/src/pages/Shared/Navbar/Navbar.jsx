@@ -91,7 +91,7 @@ const Navbar = () => {
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <img
-              src="https://i.ibb.co/pdFcRKS/18157303-newspaper-icon-business-news.jpg"
+              src="https://i.ibb.co/FxJ3Q6z/18157303-newspaper-icon-business-news-removebg-preview.png"
               alt="logo"
               style={{ width: 30, marginRight: 10 }}
             />

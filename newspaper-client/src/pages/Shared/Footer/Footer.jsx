@@ -22,7 +22,6 @@ function Copyright() {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function StickyFooter() {
@@ -53,7 +52,7 @@ export default function StickyFooter() {
             style={{ display: "flex", alignItems: "center" }}
           >
             <img
-              src="https://i.ibb.co/pdFcRKS/18157303-newspaper-icon-business-news.jpg"
+              src="https://i.ibb.co/FxJ3Q6z/18157303-newspaper-icon-business-news-removebg-preview.png"
               alt="newspaper"
               style={{ width: 30, marginRight: 10 }}
             />

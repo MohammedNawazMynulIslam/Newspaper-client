@@ -4,6 +4,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
@@ -30,7 +31,7 @@ const TrendingArticles = () => {
 
   return (
     <Container
-      maxWidth="md"
+      maxWidth="xl"
       style={{
         marginTop: 20,
         textAlign: "center",
@@ -39,12 +40,12 @@ const TrendingArticles = () => {
       <Typography variant="h4" gutterBottom>
         Trending Articles
       </Typography>
-      <Carousel showThumbs={false} showStatus={false}>
+      <Carousel showThumbs={false} showStatus={false} style={{ width: "100%" }}>
         {trending?.map((article, index) => (
           <Card key={index} style={{ marginBottom: 10 }}>
             <CardContent>
               <img
-                className="w-fit h-[400px]"
+                className="w-full h-[500px]"
                 src={article.image}
                 alt={article.title}
                 style={{ width: "100%" }}

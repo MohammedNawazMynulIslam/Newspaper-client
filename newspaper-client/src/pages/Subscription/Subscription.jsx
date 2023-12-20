@@ -28,29 +28,41 @@ const SubscriptionPage = () => {
       return res.data;
     },
   });
+
   const handlePeriodChange = (event) => {
     setSubscriptionPeriod(event.target.value);
   };
 
-  const handleSubscribe = () => {
-    users.forEach((user) => {
-      axiosSecure.patch(`/users/subscribe/${user._id}`).then((res) => {
-        console.log(res.data);
-        if (res.data.modifiedCount > 0) {
-          refetch();
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "Subscribe successful",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        }
-      });
-    });
-    navigate("/payment");
+  const handleSubscribe = async () => {
+    try {
+      const duration = parseInt(subscriptionPeriod);
+
+      await Promise.all(
+        users.map(async (user) => {
+          const response = await axiosSecure.patch(
+            `/users/subscribe/${user._id}`,
+            { duration }
+          );
+
+          if (response.data.modifiedCount > 0) {
+            refetch();
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Subscribe successful",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        })
+      );
+
+      navigate("/payment");
+    } catch (error) {
+      console.error("Error subscribing:", error);
+      // Handle error as needed
+    }
   };
-  // Handle navigation to the payment page or perform other actions
 
   return (
     <>
@@ -122,7 +134,7 @@ const SubscriptionPage = () => {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => handleSubscribe()}
+              onClick={handleSubscribe}
             >
               Subscribe Now
             </Button>
