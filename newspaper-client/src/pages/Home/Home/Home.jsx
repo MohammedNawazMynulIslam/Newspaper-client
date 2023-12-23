@@ -17,6 +17,7 @@ import {
   CardContent,
   Backdrop,
 } from "@mui/material";
+import Banner from "../Banner/Banner";
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
@@ -55,6 +56,7 @@ const Home = () => {
           delaySpeed={1000}
         />
       </div>
+      <Banner />
       <TrendingArticles />
       <AllPublisers />
       {/* Statistic */}
