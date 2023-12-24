@@ -36,7 +36,7 @@ const AllPublishers = () => {
   return (
     <>
       <h2 className="text-center my-10 text-3xl font-medium">All Publishers</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 w-full lg:grid-cols-3">
+      <div className="grid gap-5 grid-cols-1 md:grid-cols-2 w-full lg:grid-cols-3">
         {publishers.map((publisher) => (
           <div
             key={publisher.id}
