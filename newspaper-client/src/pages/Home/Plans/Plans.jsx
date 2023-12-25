@@ -25,11 +25,11 @@ const Plans = () => {
   ];
 
   return (
-    <Container maxWidth="md" style={{ marginTop: 20 }}>
+    <Container maxWidth="md" style={{ marginTop: 20, justifyItems: "center" }}>
       <Typography variant="h4" style={{ textAlign: "center" }} gutterBottom>
         Subscription Plans
       </Typography>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} justify="center">
         <Grid item xs={12} md={4}>
           <Card
             style={{

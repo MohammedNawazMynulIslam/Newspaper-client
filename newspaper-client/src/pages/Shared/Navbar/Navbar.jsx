@@ -87,7 +87,10 @@ const Navbar = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar
+        position="static"
+        sx={{ backgroundImage: "linear-gradient(to right, #007BFF, #00BFFF)" }}
+      >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <img

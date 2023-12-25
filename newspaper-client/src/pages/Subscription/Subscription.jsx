@@ -69,6 +69,7 @@ const SubscriptionPage = () => {
       <Helmet>
         <title>Newspaper || Subscription</title>
       </Helmet>
+
       <Box marginTop={"50px"}>
         <Container maxWidth="md">
           <Typography variant="h4" textAlign={"center"} gutterBottom>
