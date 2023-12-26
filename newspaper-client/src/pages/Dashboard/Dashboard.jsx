@@ -10,7 +10,13 @@ import Bar from "./Bar/Bar";
 const Dashboard = () => {
   return (
     <div className="flex">
-      <div className="w-64 min-h-full bg-blue-500">
+      <div
+        className="w-64 min-h-full"
+        style={{
+          background: "linear-gradient(to right, #007BFF, #00BFFF)",
+          color: "#fff", // You can adjust the text color as needed
+        }}
+      >
         <ul className="menu p-4">
           <li>
             <NavLink to="/dashboard/adminHome">
