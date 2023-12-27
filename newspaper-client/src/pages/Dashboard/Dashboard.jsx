@@ -3,6 +3,7 @@ import { FaUsers } from "react-icons/fa";
 import { MdArticle } from "react-icons/md";
 import { FaPenAlt } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
+import { RiAdminFill } from "react-icons/ri";
 import PieChart from "./PieChart/PieChart";
 import LineGraph from "../LineGraph/LineGraph";
 import Bar from "./Bar/Bar";
@@ -20,7 +21,7 @@ const Dashboard = () => {
         <ul className="menu p-4">
           <li>
             <NavLink to="/dashboard/adminHome">
-              <FaHome></FaHome>
+              <RiAdminFill />
               Admin Home
             </NavLink>
           </li>
