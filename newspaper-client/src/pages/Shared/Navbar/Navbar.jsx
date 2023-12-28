@@ -9,7 +9,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link, Link as RouterLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
@@ -19,13 +18,15 @@ import { useQuery } from "@tanstack/react-query";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
+  // const theme = useTheme();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const settings = ["Profile"];
   const [isAdmin] = useAdmin();
   const [premiumTaken, setPremiumTaken] = React.useState(false);
   const axiosSecure = useAxiosSecure();
-  console.log({ user });
+  // console.log({ user });
+
   const handleLogOut = () => {
     logOut()
       .then(() => {})
@@ -89,7 +90,9 @@ const Navbar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
         position="static"
-        sx={{ backgroundImage: "linear-gradient(to right, #007BFF, #00BFFF)" }}
+        sx={{
+          backgroundImage: "linear-gradient(to right, #007BFF, #00BFFF)",
+        }}
       >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
@@ -124,6 +127,9 @@ const Navbar = () => {
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
               color="inherit"
+              sx={{
+                display: { lg: "none" },
+              }}
             >
               <MenuIcon />
             </IconButton>
