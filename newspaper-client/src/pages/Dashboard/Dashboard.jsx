@@ -8,6 +8,7 @@ import { RiAdminFill } from "react-icons/ri";
 import PieChart from "./PieChart/PieChart";
 import LineGraph from "../LineGraph/LineGraph";
 import Bar from "./Bar/Bar";
+import { Divider } from "@mui/material";
 
 const Dashboard = () => {
   return (
@@ -16,11 +17,18 @@ const Dashboard = () => {
         <div
           className="w-64 min-h-full"
           style={{
-            background: "#007b",
+            backgroundImage: "linear-gradient(to right, #007BFF, #00BFFF)",
             color: "#fff",
           }}
         >
           <ul className="menu p-4">
+            <li>
+              <NavLink to="/">
+                <FaHome />
+                Home
+              </NavLink>
+            </li>
+            <Divider />
             <li>
               <NavLink to="/dashboard/adminHome">
                 <RiAdminFill />
@@ -43,12 +51,6 @@ const Dashboard = () => {
               <NavLink to="/dashboard/allPublishers">
                 <FaPenAlt />
                 Add Publishers
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/">
-                <FaHome />
-                Home
               </NavLink>
             </li>
           </ul>
