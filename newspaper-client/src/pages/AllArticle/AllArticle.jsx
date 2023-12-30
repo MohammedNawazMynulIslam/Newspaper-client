@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const AllArticle = () => {
   const axiosSecure = useAxiosSecure();
-  //   chtggcd
+
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedPublisher, setSelectedPublisher] = useState("");
@@ -137,7 +137,7 @@ const AllArticle = () => {
         {articles.length === 0 ? (
           <p>No articles found.</p>
         ) : (
-          <div className="grid grid-cols-3 gap-6 ">
+          <div className="grid lg:grid-cols-3 sm:grid-cols-1 gap-6 mt-2">
             {articles.map((article) => (
               <div
                 key={article._id}

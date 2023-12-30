@@ -89,7 +89,6 @@ const AddArticle = () => {
     fetchPublishers();
   }, [axiosPublic, setValue]);
 
-  // isnode comppp
   const options = useMemo(
     () =>
       publishers.map((publisher) => ({

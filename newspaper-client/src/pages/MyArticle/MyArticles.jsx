@@ -19,6 +19,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const MyArticles = () => {
   const [selectedArticle, setSelectedArticle] = useState(null);
@@ -29,6 +30,7 @@ const MyArticles = () => {
   const [declineReason, setDeclineReason] = useState("");
   const [reason, setReason] = useState("");
   const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
   const [updatedData, setUpdatedData] = useState({
     title: "",
     publisher: "",
@@ -36,15 +38,14 @@ const MyArticles = () => {
     image: "",
     description: "",
   });
-  // const fetchDeclineReason = async () => {
-  //   /* Your fetch decline reason logic */
-  // };
+
+  console.log("email", user?.email);
   const {
     data: articles,
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["myArticle"],
+    queryKey: ["myArticle", user?.email],
     queryFn: async () => {
       try {
         const res = await axiosSecure.get("/article", {
@@ -146,6 +147,7 @@ const MyArticles = () => {
   if (isLoading) {
     return <div>Loading...</div>;
   }
+  console.log("Articles", articles);
 
   return (
     <div>
