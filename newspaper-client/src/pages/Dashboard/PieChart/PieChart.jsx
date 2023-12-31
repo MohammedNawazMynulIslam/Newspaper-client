@@ -35,7 +35,6 @@ const PieChart = () => {
   }, [articles]);
   return (
     <div>
-      {/* <h2>Publication Article Distribution</h2> */}
       {pieChartData.length > 0 ? (
         <Chart
           width={"100%"}

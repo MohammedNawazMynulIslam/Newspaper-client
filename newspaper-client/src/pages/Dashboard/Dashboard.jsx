@@ -15,7 +15,7 @@ const Dashboard = () => {
     <>
       <div className="flex">
         <div
-          className="w-64 min-h-full"
+          className="w-64 min-h-screen"
           style={{
             backgroundImage: "linear-gradient(to right, #007BFF, #00BFFF)",
             color: "#fff",

@@ -23,7 +23,7 @@ const AllPublishers = () => {
       }
     },
   });
-  console.log(publishers);
+  // console.log(publishers);
 
   if (isLoading) {
     return <div>Loading...</div>;

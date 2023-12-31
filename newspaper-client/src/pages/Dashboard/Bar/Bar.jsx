@@ -55,7 +55,6 @@ const Bar = () => {
   }
   return (
     <div>
-      <h2>ss</h2>
       <Chart
         width={"100%"}
         height={"400px"}

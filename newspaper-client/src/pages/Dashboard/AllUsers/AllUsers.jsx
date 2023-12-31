@@ -62,7 +62,7 @@ const AllUsers = () => {
     <div className="mx-12">
       <>
         <Helmet>
-          <title>Your App | All Users</title>
+          <title>Newspaper | All Users</title>
         </Helmet>
         <div>
           <h1 className="text-center mt-10 text-4xl">All Users</h1>
