@@ -60,8 +60,10 @@ const AuthProvider = ({ children }) => {
         axiosPublic.post("/jwt", userDetail).then((res) => {
           if (res.data.token) {
             localStorage.setItem("access-token", res.data.token);
+            console.log("token stored in local storage", res.data.token);
           } else {
             localStorage.removeItem("access-token");
+            console.log("token not received or removed from local storage");
           }
         });
       }

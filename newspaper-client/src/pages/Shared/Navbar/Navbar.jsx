@@ -18,6 +18,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
+  console.log(user);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const settings = ["Profile"];
@@ -74,12 +75,16 @@ const Navbar = () => {
         { label: "All Articles", link: "/all-articles" },
         { label: "Subscription", link: "/subscription" },
         { label: "My Articles", link: "/my-articles" },
+        isAdmin && {
+          label: "Dashboard",
+          link: "/dashboard",
+        },
+        { label: "Profile", link: "/profile" },
 
         isPremiumUser && {
           label: "Premium Articles",
           link: "/premium-articles",
         },
-        // { label: "Logout", link: "/logout" },
       ].filter(Boolean)
     : [
         { label: "Home", link: "/" },
@@ -199,7 +204,7 @@ const Navbar = () => {
               ))}
               {user ? (
                 <>
-                  {isAdmin && (
+                  {/* {isAdmin && (
                     <MenuItem
                       component={RouterLink}
                       to="/dashboard"
@@ -207,9 +212,9 @@ const Navbar = () => {
                     >
                       <Typography textAlign="center">Dashboard</Typography>
                     </MenuItem>
-                  )}
+                  )} */}
 
-                  {premiumTaken && (
+                  {/* {premiumTaken && (
                     <MenuItem
                       component={RouterLink}
                       to="/premium-articles"
@@ -219,35 +224,22 @@ const Navbar = () => {
                         Premium Articles
                       </Typography>
                     </MenuItem>
-                  )}
-                  <MenuItem
+                  )} */}
+                  {/* <MenuItem
                     component={RouterLink}
                     to="/profile"
                     onClick={handleCloseNavMenu}
                   >
                     <Typography textAlign="center">PROFILE</Typography>
-                  </MenuItem>
+                  </MenuItem> */}
                   <MenuItem onClick={handleLogOut}>
                     <Typography textAlign="center">LOGOUT</Typography>
                   </MenuItem>
                 </>
               ) : (
-                <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-                  <MenuItem
-                    component={RouterLink}
-                    to="/login"
-                    onClick={handleCloseNavMenu}
-                  >
-                    <Typography textAlign="center">LOGIN</Typography>
-                  </MenuItem>
-                  <MenuItem
-                    component={RouterLink}
-                    to="/register"
-                    onClick={handleCloseNavMenu}
-                  >
-                    <Typography textAlign="center">REGISTER</Typography>
-                  </MenuItem>
-                </Box>
+                <Box
+                  sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
+                ></Box>
               )}
             </Box>
             {user && (
@@ -256,6 +248,7 @@ const Navbar = () => {
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar alt="" src={user?.photoURL} />
                   </IconButton>
+                  <Typography>{user?.displayName}</Typography>
                 </Link>
 
                 <Menu

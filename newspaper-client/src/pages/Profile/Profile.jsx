@@ -36,7 +36,7 @@ const Profile = () => {
         <title>Newspaper || Profile</title>
       </Helmet>
       <Container maxWidth="sm">
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h4" gutterBottom textAlign={"center"}>
           My Profile
         </Typography>
         <TextField
