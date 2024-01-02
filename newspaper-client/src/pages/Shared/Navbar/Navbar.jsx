@@ -79,12 +79,12 @@ const Navbar = () => {
           label: "Dashboard",
           link: "/dashboard",
         },
-        { label: "Profile", link: "/profile" },
 
         isPremiumUser && {
           label: "Premium Articles",
           link: "/premium-articles",
         },
+        { label: "Profile", link: "/profile" },
       ].filter(Boolean)
     : [
         { label: "Home", link: "/" },

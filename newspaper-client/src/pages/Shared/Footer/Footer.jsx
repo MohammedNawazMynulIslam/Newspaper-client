@@ -49,7 +49,11 @@ export default function StickyFooter() {
         >
           <Container
             maxWidth="sm"
-            style={{ display: "flex", alignItems: "center" }}
+            sx={{
+              display: "flex",
+              flexDirection: { xs: "column", sm: "column", md: "row" },
+              alignItems: "center",
+            }}
           >
             <img
               src="https://i.ibb.co/FxJ3Q6z/18157303-newspaper-icon-business-news-removebg-preview.png"
