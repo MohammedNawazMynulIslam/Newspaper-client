@@ -70,7 +70,13 @@ const SubscriptionPage = () => {
         <title>Newspaper || Subscription</title>
       </Helmet>
 
-      <Box marginTop={"50px"}>
+      <Box
+        marginTop={"50px"}
+        display={"flex"}
+        flexDirection={"column"}
+        alignItems={"center"}
+        justifyContent={"center"}
+      >
         <Container maxWidth="md">
           <Typography variant="h4" textAlign={"center"} gutterBottom>
             Subscribe
@@ -89,7 +95,7 @@ const SubscriptionPage = () => {
           <Box
             sx={{
               backgroundColor: "white",
-              p: 3,
+              p: 5,
               borderRadius: 8,
               boxShadow: 1,
             }}

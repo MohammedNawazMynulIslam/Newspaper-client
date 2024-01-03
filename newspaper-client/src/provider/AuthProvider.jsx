@@ -40,6 +40,7 @@ const AuthProvider = ({ children }) => {
   //   logout
   const logOut = () => {
     setLoading(true);
+
     return signOut(auth);
   };
   // update profile
@@ -51,24 +52,52 @@ const AuthProvider = ({ children }) => {
   };
 
   //   observer
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+  //     setUser(currentUser);
+  //     // if  else
+  //     if (currentUser) {
+  //       const userDetail = { email: currentUser.email };
+  //       axiosPublic.post("/jwt", userDetail).then((res) => {
+  //         if (res.data.token) {
+  //           localStorage.setItem("access-token", res.data.token);
+  //           console.log("token stored in local storage", res.data.token);
+  //         } else {
+  //           localStorage.removeItem("access-token");
+  //           console.log("token not received or removed from local storage");
+  //         }
+  //       });
+  //     }
+  //     setLoading(false);
+  //   });
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, [axiosPublic]);
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      console.log("onAuthStateChanged triggered");
       setUser(currentUser);
-      // if  else
       if (currentUser) {
         const userDetail = { email: currentUser.email };
-        axiosPublic.post("/jwt", userDetail).then((res) => {
+        try {
+          console.log("Sending request to /jwt");
+          const res = await axiosPublic.post("/jwt", userDetail);
           if (res.data.token) {
+            console.log("Received token from /jwt:", res.data.token);
             localStorage.setItem("access-token", res.data.token);
-            console.log("token stored in local storage", res.data.token);
+            // Redirect the user to the desired page here
           } else {
+            console.log("Token not received or removed from /jwt response");
             localStorage.removeItem("access-token");
-            console.log("token not received or removed from local storage");
           }
-        });
+        } catch (error) {
+          console.error("Error while sending token to backend:", error);
+        }
       }
       setLoading(false);
     });
+
     return () => {
       unsubscribe();
     };

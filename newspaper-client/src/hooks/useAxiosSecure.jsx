@@ -35,8 +35,15 @@ const useAxiosSecure = () => {
         const status = error.response.status;
         console.log("status error in the interceptor", status);
         if (status === 401 || status === 403) {
-          logOut();
-          navigate("/login");
+          const token = localStorage.getItem("access-token");
+          if (token) {
+            console.log("User is already authenticated, not redirecting");
+          } else {
+            console.log("User is not authenticated, redirecting to login");
+
+            logOut();
+            navigate("/login");
+          }
         }
         return Promise.reject(error);
       }

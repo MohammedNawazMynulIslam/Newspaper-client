@@ -137,7 +137,7 @@ const AllArticle = () => {
         {articles.length === 0 ? (
           <p>No articles found.</p>
         ) : (
-          <div className="grid lg:grid-cols-3 sm:grid-cols-1 gap-6 mt-2">
+          <div className="grid justify-center lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 mt-2">
             {articles.map((article) => (
               <div
                 key={article._id}

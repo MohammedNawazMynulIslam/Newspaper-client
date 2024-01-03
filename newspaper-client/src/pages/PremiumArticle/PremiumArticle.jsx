@@ -39,7 +39,9 @@ const PremiumArticle = () => {
       <h1 className="text-center my-9 text-3xl font-medium">
         Premium Articles
       </h1>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
+      <div
+        style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
+      >
         {articles.map((article) => (
           <Tilt key={article.id} tiltMaxAngleX={15} tiltMaxAngleY={15}>
             <div
