@@ -43,21 +43,7 @@ const Home = () => {
         <Helmet>
           <title>Newspaper || Home</title>
         </Helmet>
-        <div className="text-center my-11 text-3xl font-medium">
-          <Typewriter
-            words={[
-              "Welcome to the Newspaper!",
-              "Stay Informed!",
-              "Discover Exciting Stories!",
-            ]}
-            loop={100}
-            cursor
-            cursorStyle="_"
-            typeSpeed={70}
-            deleteSpeed={50}
-            delaySpeed={1000}
-          />
-        </div>
+
         <Banner />
         <TrendingArticles />
         <AllPublisers />

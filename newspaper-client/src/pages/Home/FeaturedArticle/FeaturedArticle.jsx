@@ -56,7 +56,7 @@ const FeaturedArticlesSection = () => {
     // Add more featured articles as needed
   ];
 
-  const articlesPerPage = 3;
+  const articlesPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
 
   const indexOfLastArticle = currentPage * articlesPerPage;

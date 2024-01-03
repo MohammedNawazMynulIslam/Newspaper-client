@@ -40,7 +40,11 @@ const TrendingArticles = () => {
       <Typography variant="h4" gutterBottom>
         Trending Articles
       </Typography>
-      <Carousel showThumbs={false} showStatus={false} style={{ width: "100%" }}>
+      <Carousel
+        showThumbs={false}
+        showStatus={false}
+        // style={{ width: "100%", margin: "0 auto" }}
+      >
         {trending?.map((article, index) => (
           <Card key={index} style={{ marginBottom: 10 }}>
             <CardContent>
