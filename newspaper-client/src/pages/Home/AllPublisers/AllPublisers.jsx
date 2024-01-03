@@ -44,7 +44,7 @@ const AllPublishers = () => {
           >
             <div className="h-[300px]">
               <img
-                className="rounded-t-lg h-[250px] w-full"
+                className="rounded-t-lg h-[250px] w-[350px]"
                 src={publisher.image}
                 alt={publisher.name}
               />
