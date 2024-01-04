@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-
+import { motion } from "framer-motion";
 const AllPublishers = () => {
   const axiosSecure = useAxiosSecure();
   const {
@@ -38,8 +38,10 @@ const AllPublishers = () => {
       <h2 className="text-center my-10 text-3xl font-medium">All Publishers</h2>
       <div className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
         {publishers.map((publisher) => (
-          <div
+          <motion.div
             key={publisher.id}
+            whileHover={{ scale: 1.3 }}
+            whileTap={{ scale: 0.9 }}
             className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
           >
             <div className="h-[300px]">
@@ -57,7 +59,7 @@ const AllPublishers = () => {
               </a>
               <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"></p>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </>

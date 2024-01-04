@@ -29,6 +29,7 @@ const Plans = () => {
       <Typography variant="h4" style={{ textAlign: "center" }} gutterBottom>
         Subscription Plans
       </Typography>
+      <div></div>
 
       <Grid container spacing={3} justifyContent="center">
         <Grid item xs={12} md={4}>
