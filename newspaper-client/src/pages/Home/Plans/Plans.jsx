@@ -9,7 +9,7 @@ const Plans = () => {
   const bulletPoints = [
     "Premium account",
     "Cancel anytime",
-    "15 hours/month of listening time",
+    "15 hours/month of listening time from our audiobooks subscribe catelog",
   ];
   const bulletPointsPD = [
     "2 Premium account",
@@ -25,19 +25,22 @@ const Plans = () => {
   ];
 
   return (
-    <Container maxWidth="md" style={{ marginTop: 20, justifyItems: "center" }}>
+    <Container maxWidth="lg" style={{ marginTop: 20, justifyItems: "center" }}>
       <Typography variant="h4" style={{ textAlign: "center" }} gutterBottom>
         Subscription Plans
       </Typography>
-      <Grid container spacing={3} justify="center">
+
+      <Grid container spacing={3} justifyContent="center">
         <Grid item xs={12} md={4}>
           <Card
+            className="border-5 border-solid border-skyblue bg-black text-white w-fit-content text-center"
             style={{
               border: "5px solid skyblue",
               backgroundColor: "black",
               color: "white",
               height: "500px",
-              width: "280px",
+              width: "fit-content",
+              textAlign: "center",
             }}
           >
             <CardContent>
@@ -55,7 +58,7 @@ const Plans = () => {
               </Typography>
               <ul
                 style={{
-                  listStyleType: "disc",
+                  // listStyleType: "disc",
                   lineHeight: "1.6",
                   padding: "20px",
                 }}
@@ -70,15 +73,15 @@ const Plans = () => {
                 fullWidth
                 style={{ marginTop: 50 }}
               >
-                Try Free for 1 Month
+                Try Free
               </Button>
               <Typography
                 variant="body2"
                 color="white"
                 style={{ marginTop: 10 }}
               >
-                Free for 1 month, then $10.99/month after. Offer only available
-                if you havent tried Premium before. Terms apply.
+                Free for 1 month, For couples who reside at the same address.
+                Terms apply.
               </Typography>
             </CardContent>
           </Card>
@@ -90,7 +93,8 @@ const Plans = () => {
               backgroundColor: "black",
               color: "white",
               height: "500px",
-              width: "280px",
+              width: "fit-content",
+              textAlign: "center",
             }}
           >
             <CardContent>
@@ -106,7 +110,6 @@ const Plans = () => {
               </Typography>
               <ul
                 style={{
-                  listStyleType: "disc",
                   lineHeight: "1.6",
                   padding: "20px",
                 }}
@@ -143,7 +146,8 @@ const Plans = () => {
               backgroundColor: "black",
               color: "white",
               height: "500px",
-              width: "280px",
+              width: "fit-content",
+              textAlign: "center",
             }}
           >
             <CardContent>
@@ -159,7 +163,6 @@ const Plans = () => {
               </Typography>
               <ul
                 style={{
-                  listStyleType: "disc",
                   lineHeight: "1.6",
                   padding: "20px",
                 }}
@@ -189,6 +192,29 @@ const Plans = () => {
           </Card>
         </Grid>
       </Grid>
+      <style>{`
+        .before {
+          content: '';
+          position: absolute;
+          width: 100px;
+          background-image: linear-gradient(180deg, rgb(0, 183, 255), rgb(255, 48, 255));
+          height: 130%;
+          animation: rotBGimg 3s linear infinite;
+          transition: all 0.2s linear;
+          top: 0;
+          left: 0;
+        }
+
+        @keyframes rotBGimg {
+          from {
+            transform: rotate(0deg);
+          }
+
+          to {
+            transform: rotate(360deg);
+          }
+        }
+      `}</style>
     </Container>
   );
 };
