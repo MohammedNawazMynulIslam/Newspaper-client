@@ -8,7 +8,8 @@ import AllPublisers from "../AllPublisers/AllPublisers";
 import Statistic from "../../Statistic/Statistic";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-
+import Aos from "aos";
+import "aos/dist/aos.css";
 import {
   Button,
   Fade,
@@ -21,6 +22,9 @@ import {
 import Banner from "../Banner/Banner";
 
 const Home = () => {
+  useEffect(() => {
+    Aos.init();
+  }, []);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   const closeModal = () => {
@@ -45,12 +49,24 @@ const Home = () => {
         </Helmet>
 
         <Banner />
-        <TrendingArticles />
+        <div
+          data-aos="flip-left"
+          data-aos-easing="ease-out-cubic"
+          data-aos-duration="2000"
+        >
+          <TrendingArticles />
+        </div>
+
         <AllPublisers />
         {/* Statistic */}
-        <Statistic />
+        <div data-aos="flip-down">
+          <Statistic />
+        </div>
+
         <Plans />
-        <FeaturedArticlesSection />
+        <div data-aos="fade-up-left">
+          <FeaturedArticlesSection />
+        </div>
         <Reviews />
         <Modal
           open={showModal}
