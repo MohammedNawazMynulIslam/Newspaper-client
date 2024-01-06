@@ -56,18 +56,20 @@ const Home = () => {
         >
           <TrendingArticles />
         </div>
-
-        <AllPublisers />
-        {/* Statistic */}
-        <div data-aos="flip-down">
-          <Statistic />
+        <div data-aos="zoom-out-up">
+          <AllPublisers />
         </div>
+        {/* Statistic */}
+
+        <Statistic />
 
         <Plans />
         <div data-aos="fade-up-left">
           <FeaturedArticlesSection />
         </div>
-        <Reviews />
+        <div data-aos="zoom-in-down">
+          <Reviews />
+        </div>
         <Modal
           open={showModal}
           onClose={closeModal}
