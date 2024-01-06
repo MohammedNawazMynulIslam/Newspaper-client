@@ -10,13 +10,15 @@ import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import { Link, Link as RouterLink } from "react-router-dom";
+import { Link, Link as RouterLink, useLocation } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
+import { motion } from "framer-motion";
 import useAdmin from "../../../hooks/useAdmin";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 
 const Navbar = () => {
+  const location = useLocation();
   const { user, logOut } = useAuth();
   console.log(user);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -26,7 +28,8 @@ const Navbar = () => {
   const [premiumTaken, setPremiumTaken] = React.useState(false);
   const axiosSecure = useAxiosSecure();
   // console.log({ user });
-
+  // Add a state variable to track the selected item
+  const [selectedItem, setSelectedItem] = React.useState("");
   const handleLogOut = () => {
     logOut()
       .then(() => {})
@@ -164,9 +167,24 @@ const Navbar = () => {
                   key={page.label}
                   component={RouterLink}
                   to={page.link}
-                  onClick={handleCloseNavMenu}
+                  selected={location.pathname === page.link}
+                  onClick={() => {
+                    handleCloseNavMenu();
+                    setSelectedItem(page.label);
+                  }}
                 >
                   <Typography textAlign="center">{page.label}</Typography>
+                  {selectedItem === page.label && (
+                    <motion.div
+                      layoutId="underline"
+                      style={{
+                        width: "100%",
+                        height: 2,
+                        background: "white",
+                        marginTop: 5,
+                      }}
+                    ></motion.div>
+                  )}
                 </MenuItem>
               ))}
             </Menu>
@@ -204,34 +222,6 @@ const Navbar = () => {
               ))}
               {user ? (
                 <>
-                  {/* {isAdmin && (
-                    <MenuItem
-                      component={RouterLink}
-                      to="/dashboard"
-                      onClick={handleCloseNavMenu}
-                    >
-                      <Typography textAlign="center">Dashboard</Typography>
-                    </MenuItem>
-                  )} */}
-
-                  {/* {premiumTaken && (
-                    <MenuItem
-                      component={RouterLink}
-                      to="/premium-articles"
-                      onClick={handleCloseNavMenu}
-                    >
-                      <Typography textAlign="center">
-                        Premium Articles
-                      </Typography>
-                    </MenuItem>
-                  )} */}
-                  {/* <MenuItem
-                    component={RouterLink}
-                    to="/profile"
-                    onClick={handleCloseNavMenu}
-                  >
-                    <Typography textAlign="center">PROFILE</Typography>
-                  </MenuItem> */}
                   <MenuItem onClick={handleLogOut}>
                     <Typography textAlign="center">LOGOUT</Typography>
                   </MenuItem>

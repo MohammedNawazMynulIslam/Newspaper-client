@@ -67,7 +67,7 @@ const Home = () => {
         <div data-aos="fade-up-left">
           <FeaturedArticlesSection />
         </div>
-        <div data-aos="zoom-in-down">
+        <div data-aos="flip-up">
           <Reviews />
         </div>
         <Modal
