@@ -13,6 +13,7 @@ import {
   Typography,
   Box,
   TextField,
+  Grid,
 } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
@@ -231,7 +232,7 @@ const MyArticles = () => {
         </Table>
       </TableContainer>
       {/* Modal for updating article */}
-      <Modal open={openModal} onClose={() => setOpenModal(false)}>
+      {/* <Modal open={openModal} onClose={() => setOpenModal(false)}>
         <Box
           sx={{
             position: "absolute",
@@ -299,6 +300,92 @@ const MyArticles = () => {
           >
             Cancel
           </Button>
+        </Box>
+      </Modal> */}
+      <Modal open={openModal} onClose={() => setOpenModal(false)}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 400,
+            bgcolor: "background.paper",
+            border: "2px solid #000",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <Typography variant="h6" component="div" gutterBottom>
+            Update Article
+          </Typography>
+          <TextField
+            label="Title"
+            value={updatedData.title}
+            onChange={(e) =>
+              setUpdatedData({ ...updatedData, title: e.target.value })
+            }
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Publisher"
+            value={updatedData.publisher}
+            onChange={(e) =>
+              setUpdatedData({ ...updatedData, publisher: e.target.value })
+            }
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Tags"
+            value={updatedData.tags}
+            onChange={(e) =>
+              setUpdatedData({ ...updatedData, tags: e.target.value })
+            }
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Image"
+            value={updatedData.image}
+            onChange={(e) =>
+              setUpdatedData({ ...updatedData, image: e.target.value })
+            }
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Description"
+            multiline
+            rows={4}
+            value={updatedData.description}
+            onChange={(e) =>
+              setUpdatedData({ ...updatedData, description: e.target.value })
+            }
+            fullWidth
+            margin="normal"
+          />
+          <Grid container spacing={2}>
+            <Grid item>
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => handleUpdate(selectedArticle._id)}
+              >
+                Update
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                variant="outlined"
+                color="secondary"
+                onClick={() => setOpenModal(false)}
+              >
+                Cancel
+              </Button>
+            </Grid>
+          </Grid>
         </Box>
       </Modal>
 

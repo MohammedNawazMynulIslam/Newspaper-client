@@ -2,9 +2,9 @@ import { Typewriter } from "react-simple-typewriter";
 
 const Banner = () => {
   return (
-    <div className="relative h-screen mt-5">
+    <div className="lg:w-full relative h-screen mt-5 sm:w-10">
       <div
-        className=" absolute inset-0 flex items-center bg-fixed"
+        className="  lg:w-full absolute inset-0 flex items-center bg-fixed"
         style={{
           backgroundImage:
             'url("https://i.ibb.co/S6MFQ36/photo-1485988412941-77a35537dae4.jpg")',

@@ -15,7 +15,7 @@ const Dashboard = () => {
     <>
       <div className="flex">
         <div
-          className="w-64 min-h-screen"
+          className="lg:w-64 min-h-screen"
           style={{
             backgroundImage: "linear-gradient(to right, #007BFF, #00BFFF)",
             color: "#fff",
@@ -57,9 +57,6 @@ const Dashboard = () => {
         </div>
 
         <div className="flex-1">
-          {/* <PieChart />
-        <LineGraph />
-        <Bar /> */}
           <Outlet />
         </div>
       </div>
