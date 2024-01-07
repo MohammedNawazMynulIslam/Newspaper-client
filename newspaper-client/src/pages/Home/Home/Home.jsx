@@ -18,6 +18,7 @@ import {
   Card,
   CardContent,
   Backdrop,
+  Box,
 } from "@mui/material";
 import Banner from "../Banner/Banner";
 
@@ -43,7 +44,7 @@ const Home = () => {
   };
   return (
     <>
-      <div>
+      <div className="overflow-x-hidden">
         <Helmet>
           <title>Newspaper || Home</title>
         </Helmet>
@@ -77,6 +78,11 @@ const Home = () => {
           BackdropComponent={Backdrop}
           BackdropProps={{
             timeout: 500,
+          }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <Fade in={showModal}>

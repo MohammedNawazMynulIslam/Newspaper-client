@@ -2,7 +2,7 @@ import { Typewriter } from "react-simple-typewriter";
 
 const Banner = () => {
   return (
-    <div className="lg:w-full relative h-screen mt-5 sm:w-10">
+    <div className="lg:w-full  relative h-screen mt-5 sm:w-full">
       <div
         className="  lg:w-full absolute inset-0 flex items-center bg-fixed"
         style={{

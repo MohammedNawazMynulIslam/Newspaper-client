@@ -163,12 +163,14 @@ const AllArticles = () => {
                   <TableCell>{article?.postedDate}</TableCell>
                   <TableCell>{article?.status}</TableCell>
                   <TableCell>{article?.publisher}</TableCell>
+
                   <TableCell>
                     {/* approve btn */}
                     <Button
                       onClick={() => handleApprove(article)}
                       variant="contained"
                       color="success"
+                      sx={{ margin: 1 }}
                     >
                       Approve
                     </Button>
@@ -177,24 +179,29 @@ const AllArticles = () => {
                       onClick={() => handleDecline(article)}
                       variant="contained"
                       color="error"
+                      sx={{ margin: 1 }}
                     >
                       Decline
                     </Button>
-
+                    {/* delete btn */}
                     <Button
                       onClick={() => handleDelete(article._id)}
                       variant="contained"
                       color="error"
+                      sx={{ margin: 1 }}
                     >
                       Delete
                     </Button>
+                    {/* premium btn */}
                     <Button
                       onClick={() => handleMakePremium(article)}
                       variant="contained"
                       color="primary"
+                      sx={{ margin: 1 }}
                     >
                       Make Premium
                     </Button>
+                    {/* Decline modal */}
                     <Dialog
                       open={Boolean(selectedArticle === article)}
                       onClose={() => {
