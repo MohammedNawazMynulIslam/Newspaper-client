@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
+import { motion, useScroll } from "framer-motion";
 import {
   Table,
   TableBody,
@@ -23,6 +24,7 @@ import { useParams } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 const MyArticles = () => {
+  const { scrollYProgress } = useScroll();
   const [selectedArticle, setSelectedArticle] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [openDeclineReasonModal, setOpenDeclineReasonModal] = useState(false);
@@ -155,6 +157,7 @@ const MyArticles = () => {
       <Helmet>
         <title>Newspaper || My Article</title>
       </Helmet>
+      <motion.div style={{ scaleX: scrollYProgress }} />
       <Typography
         variant="h4"
         textAlign={"center"}

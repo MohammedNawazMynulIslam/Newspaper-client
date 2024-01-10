@@ -40,7 +40,7 @@ const AllArticle = () => {
     },
   });
   console.log(articles);
-  const { data: users = [], refetch: refetchUsers } = useQuery({
+  const { data: users = [] } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       try {
@@ -65,10 +65,11 @@ const AllArticle = () => {
     return premiumTaken && new Date() < new Date(premiumTaken);
   };
   return (
-    <div>
+    <>
       <Helmet>
         <title>Newspaper || All Article</title>
       </Helmet>
+
       <h2 className="text-center my-10 text-4xl">All Articles</h2>
       {/* filter and search func */}
       <div className="my-4">
@@ -128,6 +129,7 @@ const AllArticle = () => {
       >
         Apply Filters
       </button>
+
       <InfiniteScroll
         dataLength={articles?.length || 0}
         next={() => setPage(page + 1)}
@@ -201,7 +203,7 @@ const AllArticle = () => {
           </div>
         )}
       </InfiniteScroll>
-    </div>
+    </>
   );
 };
 

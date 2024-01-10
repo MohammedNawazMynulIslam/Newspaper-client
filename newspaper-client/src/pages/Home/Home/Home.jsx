@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { Typewriter } from "react-simple-typewriter";
 import FeaturedArticlesSection from "../FeaturedArticle/FeaturedArticle";
+import { motion } from "framer-motion";
 import Plans from "../Plans/Plans";
 import Reviews from "../Reviews/Reviews";
 import TrendingArticles from "../TrendingArticles/TrendingArticles";
@@ -61,8 +62,9 @@ const Home = () => {
           <AllPublisers />
         </div>
         {/* Statistic */}
-
-        <Statistic />
+        <motion.div animate={{ x: [0, 100, 0] }}>
+          <Statistic />
+        </motion.div>
 
         <Plans />
         <div data-aos="fade-up-left">
